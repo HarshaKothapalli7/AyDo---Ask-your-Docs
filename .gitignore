@@ -8,3 +8,11 @@ wheels/
 
 # Virtual environments
 .venv
+# Ignore sensitive and system files
+.env
+__pycache__/
+*.pyc
+*.log
+.vscode/
+.DS_Store
+.idea/
