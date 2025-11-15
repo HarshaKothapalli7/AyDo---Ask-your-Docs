@@ -11,7 +11,7 @@ from langchain_core.runnables import RunnableConfig # <-- NEW LINE ADDED HERE
 
 # Import API keys from config
 from config import OPENAI_API_KEY, TAVILY_API_KEY
-from vectorstore import get_retriever
+from vectorstore import get_retriever, get_most_recent_document_id
 
 # --- Tools ---
 os.environ["TAVILY_API_KEY"] = TAVILY_API_KEY
@@ -37,12 +37,48 @@ def web_search_tool(query: str) -> str:
 
 @tool
 def rag_search_tool(query: str) -> str:
-    """Top-K chunks from KB (empty string if none)"""
+    """Top-K chunks from KB (prioritizes most recent document, empty string if none)"""
     try:
-        retriever_instance = get_retriever()
-        docs = retriever_instance.invoke(query, k=5) # Increased from 3 to 5
-        return "\n\n".join(d.page_content for d in docs) if docs else ""
+        # First, try to get chunks from the most recent document
+        recent_doc_id = get_most_recent_document_id()
+
+        if recent_doc_id:
+            # Search only in the most recent document first
+            print(f"Searching in most recent document: {recent_doc_id}")
+            retriever_instance = get_retriever(k=5, filter_dict={"document_id": recent_doc_id})
+            docs = retriever_instance.invoke(query)
+
+            if docs and len(docs) > 0:
+                # Add source information to help with transparency
+                result_parts = []
+                for d in docs:
+                    metadata = d.metadata
+                    filename = metadata.get('filename', 'Unknown')
+                    chunk_idx = metadata.get('chunk_index', '?')
+                    content = d.page_content
+                    result_parts.append(f"[Source: {filename}, Chunk {chunk_idx}]\n{content}")
+
+                return "\n\n".join(result_parts)
+
+        # If no recent document or no results from recent document, search all documents
+        print("Searching across all documents...")
+        retriever_instance = get_retriever(k=5)
+        docs = retriever_instance.invoke(query)
+
+        if docs:
+            result_parts = []
+            for d in docs:
+                metadata = d.metadata
+                filename = metadata.get('filename', 'Unknown')
+                chunk_idx = metadata.get('chunk_index', '?')
+                content = d.page_content
+                result_parts.append(f"[Source: {filename}, Chunk {chunk_idx}]\n{content}")
+
+            return "\n\n".join(result_parts)
+
+        return ""
     except Exception as e:
+        print(f"RAG Error: {e}")
         return f"RAG_ERROR::{e}"
 
 # --- Pydantic schemas for structured output ---

@@ -11,10 +11,10 @@ fastapi
 uvicorn
 streamlit
 python-dotenv
-pinecone 
-langchain-pinecone 
+slowapi
+pinecone
+langchain-pinecone
 langchain-openai
 langchain_tavily
-requests 
-uuid 
+requests
 langchain-huggingface

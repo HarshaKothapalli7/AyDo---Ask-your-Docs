@@ -38,19 +38,21 @@ git clone https://github.com/yourusername/aydo-rag.git
 cd aydo-rag
 cp .env.example .env  # Then manually add your API keys
 ```
-    2. Create and activate a virtual environment
-    
-    ```bash
+
+2. Create and activate a virtual environment
+
+```bash
 python3 -m venv .venv
 source .venv/bin/activate  # Mac/Linux
+```
 
-
- 3. Install dependencies
+3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
+---
 
 ## Running the Application
 
@@ -59,12 +61,14 @@ pip install -r requirements.txt
 ```bash
 cd backend
 uvicorn main:app --reload
+```
 
 2. Start the Streamlit frontend:
 
 ```bash
 cd frontend
 streamlit run app.py
+```
 
 
 
