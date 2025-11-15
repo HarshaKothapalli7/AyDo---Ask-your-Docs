@@ -27,7 +27,7 @@ def display_header():
         pass  # Silently fail if CSS file doesn't exist
 
     # Application title
-    st.title("🤖 AyDo - Ask Your Docs")
+    st.title(" AyDo - Ask Your Docs")
 
     # Introductory description
     st.markdown(
@@ -101,7 +101,7 @@ def render_agent_settings_section():
 
     # Checkbox controlling the web search setting
     st.session_state.web_search_enabled = st.checkbox(
-        "Enable Web Search (🌐)",
+        "Enable Web Search ",
         value=st.session_state.web_search_enabled,
         help="If enabled, the agent can use web search when its knowledge base is insufficient. If disabled, it will only use uploaded documents."
     )
@@ -135,7 +135,7 @@ def display_trace_events(trace_events: list):
         return
 
     # Expandable section to view agent workflow details with enhanced UI
-    with st.expander("🔬 Agent Workflow Trace", expanded=False):
+    with st.expander(" Agent Workflow Trace", expanded=False):
         # Add progress bar
         progress = st.progress(0)
         total_steps = len(trace_events)
@@ -145,18 +145,18 @@ def display_trace_events(trace_events: list):
             progress.progress((idx + 1) / total_steps)
 
             # Mapping internal node names to emojis for better visualization
-            icon_map = {
-                'router': "🧭",
-                'rag_lookup': "📚",
-                'web_search': "🌐",
-                'answer': "💡",
-                '__end__': "✅"
-            }
-            icon = icon_map.get(event['node_name'], "⚙️")
+            # icon_map = {
+            #     'router': "🧭",
+            #     'rag_lookup': "📚",
+            #     'web_search': "🌐",
+            #     'answer': "💡",
+            #     '__end__': "✅"
+            # }
+            # icon = icon_map.get(event['node_name'], "⚙️")
 
             # Use containers for better organization
             with st.container():
-                st.markdown(f"### {icon} Step {event['step']}: `{event['node_name']}`")
+                st.markdown(f"###  Step {event['step']}: `{event['node_name']}`")
                 st.markdown(f"**{event['description']}**")
 
                 # RAG Lookup node - show verdict and sources
@@ -167,7 +167,7 @@ def display_trace_events(trace_events: list):
                     if verdict == "Sufficient":
                         st.success(f"✓ **RAG Verdict:** {verdict} - Relevant info found in Knowledge Base.")
                         if source_docs:
-                            st.info(f"📄 **Sources:** {', '.join(source_docs)}")
+                            st.info(f" **Sources:** {', '.join(source_docs)}")
                     else:
                         st.warning(f"✗ **RAG Verdict:** {verdict} - Insufficient info in Knowledge Base.")
 
@@ -177,17 +177,17 @@ def display_trace_events(trace_events: list):
 
                 # Web Search node
                 elif event['node_name'] == 'web_search' and 'retrieved_content_summary' in event['details']:
-                    st.info("🌐 Web search completed successfully")
+                    st.info(" Web search completed successfully")
                     with st.expander("View Web Search Results"):
                         st.code(event['details']['retrieved_content_summary'], language=None)
 
                 # Router node - show decision and any overrides
                 elif event['node_name'] == 'router':
                     decision = event['details'].get('decision', 'Unknown')
-                    st.info(f"🎯 **Decision:** Route to `{decision}`")
+                    st.info(f" **Decision:** Route to `{decision}`")
 
                     if 'router_override_reason' in event['details']:
-                        st.warning(f"⚠️ **Override:** {event['details']['router_override_reason']}")
+                        st.warning(f" **Override:** {event['details']['router_override_reason']}")
                         col1, col2 = st.columns(2)
                         with col1:
                             st.metric("Initial Decision", event['details']['initial_decision'])
