@@ -30,7 +30,11 @@ def display_header():
     st.title("🤖 AyDo - Ask Your Docs")
 
     # Introductory description
-    st.markdown("Ask me anything! I can answer questions using my internal knowledge (RAG) or by searching the web.")
+    st.markdown(
+        "Interact with AyDo to ask questions about your documents. "
+        "AyDo utilizes Retrieval-Augmented Generation (RAG) and optional web search "
+        "to provide accurate, context-aware responses."
+    )
 
     # Horizontal separator
     st.markdown("---")
