@@ -54,10 +54,10 @@ def main():
     render_document_upload_section(fastapi_base_url)
     render_agent_settings_section()
 
-    st.header("💬 Chat with Your Documents")
+    st.header("Shoot you Questions!")
 
     # Add clear chat button
-    if st.button("🗑️ Clear Chat", help="Clear all messages"):
+    if st.button("🧹 Clear Chat", help="Clear all messages"):
         st.session_state.messages = []
         st.session_state.last_error = None
         st.rerun()
