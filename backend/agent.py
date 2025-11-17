@@ -11,7 +11,7 @@ from langchain_core.runnables import RunnableConfig # <-- NEW LINE ADDED HERE
 
 # Import API keys from config
 from config import OPENAI_API_KEY, TAVILY_API_KEY
-from vectorstore import get_retriever, get_most_recent_document_id
+from vectorstore import get_retriever, get_most_recent_batch_id
 
 # --- Tools ---
 os.environ["TAVILY_API_KEY"] = TAVILY_API_KEY
@@ -37,15 +37,15 @@ def web_search_tool(query: str) -> str:
 
 @tool
 def rag_search_tool(query: str) -> str:
-    """Top-K chunks from KB (prioritizes most recent document, empty string if none)"""
+    """Top-K chunks from KB (searches within most recent batch of uploaded documents)"""
     try:
-        # First, try to get chunks from the most recent document
-        recent_doc_id = get_most_recent_document_id()
+        # First, try to get chunks from the most recent batch
+        recent_batch_id = get_most_recent_batch_id()
 
-        if recent_doc_id:
-            # Search only in the most recent document first
-            print(f"Searching in most recent document: {recent_doc_id}")
-            retriever_instance = get_retriever(k=5, filter_dict={"document_id": recent_doc_id})
+        if recent_batch_id:
+            # Search only in the most recent batch (documents uploaded together)
+            print(f"Searching in most recent batch: {recent_batch_id}")
+            retriever_instance = get_retriever(k=10, filter_dict={"batch_id": recent_batch_id})
             docs = retriever_instance.invoke(query)
 
             if docs and len(docs) > 0:
@@ -60,12 +60,12 @@ def rag_search_tool(query: str) -> str:
 
                 return "\n\n".join(result_parts)
 
-        # If no recent document or no results from recent document, search all documents
-        print("Searching across all documents...")
-        retriever_instance = get_retriever(k=5)
+        # If no recent batch or no results from recent batch, search all documents
+        print("Searching across all documents in knowledge base...")
+        retriever_instance = get_retriever(k=10)
         docs = retriever_instance.invoke(query)
 
-        if docs:
+        if docs and len(docs) > 0:
             result_parts = []
             for d in docs:
                 metadata = d.metadata

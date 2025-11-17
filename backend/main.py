@@ -177,6 +177,7 @@ async def upload_documents_batch(request: Request, files: List[UploadFile] = Fil
     """
     Uploads multiple PDF documents in a single request.
     Processes each file independently and returns individual results.
+    All files in the batch share the same batch_id for grouped retrieval.
     """
     MAX_BATCH_SIZE = 10
 
@@ -186,7 +187,10 @@ async def upload_documents_batch(request: Request, files: List[UploadFile] = Fil
             detail=f"Too many files. Maximum allowed: {MAX_BATCH_SIZE} files per batch."
         )
 
-    logger.info(f"Batch upload started: {len(files)} files")
+    # Generate a single batch_id for all files in this upload session
+    from datetime import datetime
+    batch_id = f"batch_{datetime.now().strftime('%Y%m%d_%H%M%S%f')}"
+    logger.info(f"Batch upload started: {len(files)} files with batch_id: {batch_id}")
 
     results = []
     successful_count = 0
@@ -242,14 +246,14 @@ async def upload_documents_batch(request: Request, files: List[UploadFile] = Fil
 
                 if documents:
                     full_text_content = "\n\n".join([doc.page_content for doc in documents])
-                    document_id = add_document_to_vectorstore(full_text_content, filename=file.filename)
+                    document_id = add_document_to_vectorstore(full_text_content, filename=file.filename, batch_id=batch_id)
                     total_chunks = len(documents)
 
                     file_result.status = "success"
                     file_result.processed_chunks = total_chunks
                     file_result.document_id = document_id
                     successful_count += 1
-                    logger.info(f"Successfully processed {file.filename}: {total_chunks} chunks, ID: {document_id}")
+                    logger.info(f"Successfully processed {file.filename}: {total_chunks} chunks, ID: {document_id}, Batch ID: {batch_id}")
                 else:
                     file_result.error_message = "No content extracted from PDF."
                     file_result.status = "failed"
