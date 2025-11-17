@@ -1,6 +1,6 @@
 import streamlit as st
 import streamlit.components.v1 as components
-from backend_api import upload_document_to_backend, chat_with_backend_agent
+from backend_api import upload_document_to_backend, upload_documents_batch_to_backend, chat_with_backend_agent
 from session_manager import init_session_state # Import to access session state
 
 def display_header():
@@ -51,38 +51,37 @@ def render_document_upload_section(fastapi_base_url: str):
 
                 # Display upload summary
                 total_files = len(uploaded_files)
-                st.info(f"📁 Uploading {total_files} file(s)...")
-
-                # Progress tracking
-                progress_bar = st.progress(0)
-                status_placeholder = st.empty()
+                st.info(f"📁 Uploading {total_files} file(s) as a batch...")
 
                 # Track results
                 successful_uploads = []
                 failed_uploads = []
 
-                # Upload each file
-                for idx, uploaded_file in enumerate(uploaded_files):
-                    current_progress = (idx) / total_files
-                    progress_bar.progress(current_progress)
-                    status_placeholder.text(f"Uploading {idx + 1}/{total_files}: {uploaded_file.name}...")
-
+                # Show spinner during upload
+                with st.spinner(f"Processing {total_files} file(s)..."):
                     try:
-                        upload_data = upload_document_to_backend(fastapi_base_url, uploaded_file)
-                        successful_uploads.append({
-                            'filename': upload_data.get('filename'),
-                            'chunks': upload_data.get('processed_chunks', 0)
-                        })
-                    except Exception as e:
-                        failed_uploads.append({
-                            'filename': uploaded_file.name,
-                            'error': str(e)
-                        })
+                        # Use batch upload for multiple files (or single file)
+                        batch_response = upload_documents_batch_to_backend(fastapi_base_url, uploaded_files)
 
-                # Complete progress
-                progress_bar.progress(1.0)
-                status_placeholder.empty()
-                progress_bar.empty()
+                        # Process results from batch response
+                        for result in batch_response.get('results', []):
+                            if result['status'] == 'success':
+                                successful_uploads.append({
+                                    'filename': result['filename'],
+                                    'chunks': result['processed_chunks']
+                                })
+                            else:
+                                failed_uploads.append({
+                                    'filename': result['filename'],
+                                    'error': result['error_message']
+                                })
+                    except Exception as e:
+                        # If batch upload fails entirely, mark all as failed
+                        for uploaded_file in uploaded_files:
+                            failed_uploads.append({
+                                'filename': uploaded_file.name,
+                                'error': str(e)
+                            })
 
                 # Display results summary
                 st.markdown("---")
