@@ -30,22 +30,81 @@ def display_header():
 def render_document_upload_section(fastapi_base_url: str):
     """
     Renders the UI for uploading PDF documents to the knowledge base.
-    Handles file upload and API call to the backend.
+    Handles single and multiple file uploads with progress tracking.
     """
     st.header("Upload Document to Knowledge Base")
-    with st.expander("Upload New Document (PDF Only)"):
-        uploaded_file = st.file_uploader("Choose a PDF file", type="pdf", key="pdf_uploader")
-        
-        if st.button("Upload PDF", key="upload_pdf_button"):
-            if uploaded_file is not None:
-                with st.spinner(f"Uploading {uploaded_file.name}..."):
+    with st.expander("Upload New Documents (PDF Only)"):
+        uploaded_files = st.file_uploader(
+            "Choose PDF file(s) - Multiple files supported",
+            type="pdf",
+            key="pdf_uploader",
+            accept_multiple_files=True
+        )
+
+        if st.button("Upload PDF(s)", key="upload_pdf_button"):
+            if uploaded_files is not None and len(uploaded_files) > 0:
+                # Validate file count
+                max_files = 10
+                if len(uploaded_files) > max_files:
+                    st.error(f"Too many files selected. Maximum allowed: {max_files} files.")
+                    return
+
+                # Display upload summary
+                total_files = len(uploaded_files)
+                st.info(f"📁 Uploading {total_files} file(s)...")
+
+                # Progress tracking
+                progress_bar = st.progress(0)
+                status_placeholder = st.empty()
+
+                # Track results
+                successful_uploads = []
+                failed_uploads = []
+
+                # Upload each file
+                for idx, uploaded_file in enumerate(uploaded_files):
+                    current_progress = (idx) / total_files
+                    progress_bar.progress(current_progress)
+                    status_placeholder.text(f"Uploading {idx + 1}/{total_files}: {uploaded_file.name}...")
+
                     try:
                         upload_data = upload_document_to_backend(fastapi_base_url, uploaded_file)
-                        st.success(f"PDF '{upload_data.get('filename')}' uploaded successfully! Processed {upload_data.get('processed_chunks')} pages.")
+                        successful_uploads.append({
+                            'filename': upload_data.get('filename'),
+                            'chunks': upload_data.get('processed_chunks', 0)
+                        })
                     except Exception as e:
-                        st.error(f"An error occurred during upload: {e}")
+                        failed_uploads.append({
+                            'filename': uploaded_file.name,
+                            'error': str(e)
+                        })
+
+                # Complete progress
+                progress_bar.progress(1.0)
+                status_placeholder.empty()
+                progress_bar.empty()
+
+                # Display results summary
+                st.markdown("---")
+                st.subheader("📊 Upload Results")
+
+                # Success summary
+                if successful_uploads:
+                    st.success(f"✅ Successfully uploaded: {len(successful_uploads)}/{total_files} file(s)")
+                    with st.expander("View successful uploads", expanded=True):
+                        for upload in successful_uploads:
+                            st.markdown(f"✓ **{upload['filename']}** - {upload['chunks']} chunks processed")
+
+                # Failure summary
+                if failed_uploads:
+                    st.error(f"❌ Failed: {len(failed_uploads)}/{total_files} file(s)")
+                    with st.expander("View failed uploads", expanded=True):
+                        for upload in failed_uploads:
+                            st.markdown(f"✗ **{upload['filename']}**")
+                            st.code(f"Error: {upload['error']}", language=None)
+
             else:
-                st.warning("Please upload a PDF file before clicking 'Upload PDF'.")
+                st.warning("Please select at least one PDF file before clicking 'Upload PDF(s)'.")
     st.markdown("---")
 
 def render_agent_settings_section():
