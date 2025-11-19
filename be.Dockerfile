@@ -1,19 +1,21 @@
-FROM python:3.12.12-slim as builder
+FROM python:3.12.12-slim AS builder
 
 WORKDIR /app
 
 COPY requirements.txt .
 
-RUN pip install -r requirements.txt
+RUN pip install --upgrade pip && pip install --prefix=/install -r requirements.txt
 
 FROM python:3.12.12-slim
 
 WORKDIR /app
 
-COPY --from=builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
+COPY --from=builder /install /usr/local
 
 COPY backend/ ./backend
 
 WORKDIR /app/backend
 
-ENTRYPOINT ["./entrypoint.sh"]
+RUN chmod +x entrypoint.sh
+
+ENTRYPOINT ["/app/backend/entrypoint.sh"]
