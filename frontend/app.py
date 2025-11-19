@@ -49,6 +49,12 @@ def main():
     # Retrieve FastAPI backend URL from configuration
     fastapi_base_url = FRONTEND_CONFIG["FASTAPI_BASE_URL"]
 
+    # Path to custom assistant avatar (favicon)
+    # Using absolute path to ensure it works regardless of where the app is run from
+    import os
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    assistant_avatar = os.path.join(base_dir, "images", "favicon_io", "favicon-32x32.png")
+
     # Render the primary UI components
     display_header()
     render_document_upload_section(fastapi_base_url)
@@ -62,7 +68,7 @@ def main():
         st.session_state.last_error = None
         st.rerun()
 
-    display_chat_history()
+    display_chat_history(assistant_avatar=assistant_avatar)
 
     # Show retry button if there was an error
     if st.session_state.last_error:
@@ -70,7 +76,7 @@ def main():
         if st.button("🔄 Retry Last Query", key="retry_error"):
             st.session_state.last_error = None
             # Retry the query
-            with st.chat_message("assistant"):
+            with st.chat_message("assistant", avatar=assistant_avatar):
                 with st.spinner("🔄 Retrying..."):
                     agent_response, trace_events, error = process_query(error_query, fastapi_base_url)
 
@@ -93,7 +99,7 @@ def main():
             st.markdown(prompt)
 
         # Process backend response inside an assistant message block
-        with st.chat_message("assistant"):
+        with st.chat_message("assistant", avatar=assistant_avatar):
             # Custom animated spinner
             with st.spinner("🤔 Analyzing your question...\n🔍 Searching knowledge base...\n💡 Generating response..."):
                 agent_response, trace_events, error = process_query(prompt, fastapi_base_url)

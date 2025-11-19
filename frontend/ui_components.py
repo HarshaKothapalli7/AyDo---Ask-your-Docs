@@ -6,8 +6,12 @@ def display_header():
     """
     Render the page header, title, and introductory text for the AyDo application.
     """
-    # Configure the Streamlit page
-    st.set_page_config(page_title="AyDo", layout="wide")
+    # Configure the Streamlit page with favicon
+    st.set_page_config(
+        page_title="AyDo",
+        layout="wide",
+        page_icon="../images/favicon_io/favicon.ico"
+    )
 
     # Application title
     st.title("AyDo - Ask your Docs")
@@ -119,9 +123,6 @@ def render_document_upload_section(fastapi_base_url: str):
         }
         </style>""", unsafe_allow_html=True)
 
-    # Divider between sections
-    st.markdown("---")
-
 
 def render_agent_settings_section():
     """
@@ -152,20 +153,28 @@ def render_agent_settings_section():
     st.markdown("---")
 
 
-def display_chat_history():
+def display_chat_history(assistant_avatar=None):
     """
     Render the chat history stored in Streamlit session state.
 
     This function loops through all previously exchanged messages and displays
     each one using Streamlit's chat_message container, preserving role and formatting.
+
+    Args:
+        assistant_avatar: Path to the custom avatar image for assistant messages
     """
 
     # Iterate through all stored messages (list of dicts with 'role' and 'content')
     for idx, message in enumerate(st.session_state.messages):
         # Create a chat bubble based on message role: "user" or "assistant"
-        with st.chat_message(message["role"]):
-            # Display the message content using markdown for formatting support
-            st.markdown(message["content"], unsafe_allow_html=False)
+        if message["role"] == "assistant" and assistant_avatar:
+            with st.chat_message(message["role"], avatar=assistant_avatar):
+                # Display the message content using markdown for formatting support
+                st.markdown(message["content"], unsafe_allow_html=False)
+        else:
+            with st.chat_message(message["role"]):
+                # Display the message content using markdown for formatting support
+                st.markdown(message["content"], unsafe_allow_html=False)
 
 def display_trace_events(trace_events: list):
     """
