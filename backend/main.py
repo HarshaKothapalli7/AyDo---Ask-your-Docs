@@ -77,6 +77,19 @@ class DocumentUploadResponse(BaseModel):
     filename: str
     processed_chunks: int
 
+class FileUploadResult(BaseModel):
+    filename: str
+    status: str  # "success" or "failed"
+    processed_chunks: int = 0
+    error_message: str = ""
+    document_id: str = ""
+
+class BatchUploadResponse(BaseModel):
+    total_files: int
+    successful_uploads: int
+    failed_uploads: int
+    results: List[FileUploadResult]
+
 # --- Configuration Constants ---
 MAX_FILE_SIZE_MB = 200  # Maximum file size in MB
 MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
@@ -156,6 +169,117 @@ async def upload_document(request: Request, file: UploadFile = File(...)):
             os.remove(temp_file_path)
             logger.debug(f"Cleaned up temporary file: {temp_file_path}")
 
+
+# --- Batch Document Upload Endpoint ---
+@app.post("/upload-documents-batch/", response_model=BatchUploadResponse, status_code=status.HTTP_200_OK)
+@limiter.limit("3/minute")  # More restrictive for batch uploads
+async def upload_documents_batch(request: Request, files: List[UploadFile] = File(...)):
+    """
+    Uploads multiple PDF documents in a single request.
+    Processes each file independently and returns individual results.
+    All files in the batch share the same batch_id for grouped retrieval.
+    """
+    MAX_BATCH_SIZE = 10
+
+    if len(files) > MAX_BATCH_SIZE:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Too many files. Maximum allowed: {MAX_BATCH_SIZE} files per batch."
+        )
+
+    # Generate a single batch_id for all files in this upload session
+    from datetime import datetime
+    batch_id = f"batch_{datetime.now().strftime('%Y%m%d_%H%M%S%f')}"
+    logger.info(f"Batch upload started: {len(files)} files with batch_id: {batch_id}")
+
+    results = []
+    successful_count = 0
+    failed_count = 0
+
+    for file in files:
+        file_result = FileUploadResult(filename=file.filename, status="failed")
+
+        try:
+            # Validate file extension
+            if not file.filename.endswith(".pdf"):
+                file_result.error_message = "Only PDF files are supported."
+                file_result.status = "failed"
+                failed_count += 1
+                results.append(file_result)
+                continue
+
+            # Validate content type
+            if file.content_type not in ["application/pdf", "application/x-pdf"]:
+                file_result.error_message = f"Invalid content type: {file.content_type}"
+                file_result.status = "failed"
+                failed_count += 1
+                results.append(file_result)
+                continue
+
+            # Read and validate file size
+            file_content = await file.read()
+            file_size = len(file_content)
+
+            if file_size > MAX_FILE_SIZE_BYTES:
+                file_result.error_message = f"File too large ({file_size / 1024 / 1024:.2f} MB). Max: {MAX_FILE_SIZE_MB} MB"
+                file_result.status = "failed"
+                failed_count += 1
+                results.append(file_result)
+                continue
+
+            if file_size == 0:
+                file_result.error_message = "File is empty."
+                file_result.status = "failed"
+                failed_count += 1
+                results.append(file_result)
+                continue
+
+            # Write to temporary file
+            with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
+                tmp_file.write(file_content)
+                temp_file_path = tmp_file.name
+
+            try:
+                # Process PDF
+                loader = PyPDFLoader(temp_file_path)
+                documents = loader.load()
+
+                if documents:
+                    full_text_content = "\n\n".join([doc.page_content for doc in documents])
+                    document_id = add_document_to_vectorstore(full_text_content, filename=file.filename, batch_id=batch_id)
+                    total_chunks = len(documents)
+
+                    file_result.status = "success"
+                    file_result.processed_chunks = total_chunks
+                    file_result.document_id = document_id
+                    successful_count += 1
+                    logger.info(f"Successfully processed {file.filename}: {total_chunks} chunks, ID: {document_id}, Batch ID: {batch_id}")
+                else:
+                    file_result.error_message = "No content extracted from PDF."
+                    file_result.status = "failed"
+                    failed_count += 1
+                    logger.warning(f"No content extracted from {file.filename}")
+
+            finally:
+                if os.path.exists(temp_file_path):
+                    os.remove(temp_file_path)
+
+        except Exception as e:
+            file_result.error_message = f"Processing error: {str(e)}"
+            file_result.status = "failed"
+            failed_count += 1
+            logger.error(f"Error processing {file.filename}: {str(e)}", exc_info=True)
+
+        results.append(file_result)
+
+    logger.info(f"Batch upload completed: {successful_count} successful, {failed_count} failed")
+
+    return BatchUploadResponse(
+        total_files=len(files),
+        successful_uploads=successful_count,
+        failed_uploads=failed_count,
+        results=results
+    )
 
 
 # --- Chat Endpoint ---

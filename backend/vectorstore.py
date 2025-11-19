@@ -20,6 +20,9 @@ INDEX_NAME = "langgraph-rag-index" #
 # Global variable to track the most recent document ID
 _most_recent_document_id = None
 
+# Global variable to track the most recent batch ID
+_most_recent_batch_id = None
+
 def get_most_recent_document_id():
     """Returns the most recently uploaded document ID."""
     return _most_recent_document_id
@@ -29,6 +32,16 @@ def set_most_recent_document_id(document_id: str):
     global _most_recent_document_id
     _most_recent_document_id = document_id
     print(f"Most recent document ID set to: {document_id}")
+
+def get_most_recent_batch_id():
+    """Returns the most recently uploaded batch ID."""
+    return _most_recent_batch_id
+
+def set_most_recent_batch_id(batch_id: str):
+    """Sets the most recently uploaded batch ID."""
+    global _most_recent_batch_id
+    _most_recent_batch_id = batch_id
+    print(f"Most recent batch ID set to: {batch_id}")
 
 #retriever function to get relevant documents from pinecone
 def get_retriever(k: int = 5, filter_dict: dict = None):
@@ -64,16 +77,17 @@ def get_retriever(k: int = 5, filter_dict: dict = None):
     return vectorstore.as_retriever(search_kwargs=search_kwargs)
 
 # --- Function to add documents to the vector store ---
-def add_document_to_vectorstore(text_content: str, filename: str = "unknown.pdf", document_id: str = None):
+def add_document_to_vectorstore(text_content: str, filename: str = "unknown.pdf", document_id: str = None, batch_id: str = None):
     """
     Adds a single text document to the Pinecone vector store.
     Splits the text into chunks before embedding and upserting.
-    Each chunk includes metadata: filename, document_id, upload_timestamp, and chunk_index.
+    Each chunk includes metadata: filename, document_id, batch_id, upload_timestamp, and chunk_index.
 
     Args:
         text_content: The text content to add
         filename: Name of the source file
         document_id: Unique identifier for this document (auto-generated if not provided)
+        batch_id: Unique identifier for the upload batch/session (auto-generated if not provided)
     """
     if not text_content:
         raise ValueError("Document content cannot be empty.")
@@ -81,6 +95,10 @@ def add_document_to_vectorstore(text_content: str, filename: str = "unknown.pdf"
     # Generate document ID if not provided
     if document_id is None:
         document_id = f"doc_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{filename}"
+
+    # Generate batch ID if not provided (single file upload gets its own batch)
+    if batch_id is None:
+        batch_id = f"batch_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
 
     # Get current timestamp
     upload_timestamp = datetime.now().isoformat()
@@ -102,6 +120,7 @@ def add_document_to_vectorstore(text_content: str, filename: str = "unknown.pdf"
             metadata={
                 "filename": filename,
                 "document_id": document_id,
+                "batch_id": batch_id,
                 "upload_timestamp": upload_timestamp,
                 "chunk_index": idx,
                 "total_chunks": len(text_chunks)
@@ -111,6 +130,7 @@ def add_document_to_vectorstore(text_content: str, filename: str = "unknown.pdf"
 
     print(f"Splitting document '{filename}' into {len(documents)} chunks for indexing...")
     print(f"Document ID: {document_id}")
+    print(f"Batch ID: {batch_id}")
     print(f"Upload timestamp: {upload_timestamp}")
 
     # Get the vectorstore instance (not the retriever) to add documents
@@ -120,8 +140,9 @@ def add_document_to_vectorstore(text_content: str, filename: str = "unknown.pdf"
     vectorstore.add_documents(documents)
     print(f"Successfully added {len(documents)} chunks to Pinecone index '{INDEX_NAME}'.")
 
-    # Update the most recent document ID
+    # Update the most recent document ID and batch ID
     set_most_recent_document_id(document_id)
+    set_most_recent_batch_id(batch_id)
 
     return document_id
 
