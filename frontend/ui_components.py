@@ -1,6 +1,6 @@
 import streamlit as st
 # Import functions that send requests to the FastAPI backend
-from backend_api import upload_document_to_backend
+from backend_api import upload_document_to_backend, upload_documents_batch_to_backend
 
 def display_header():
     """
@@ -26,48 +26,85 @@ def display_header():
 def render_document_upload_section(fastapi_base_url: str):
     """
     User interface for uploading PDF documents into the knowledge base.
-    Includes file selection, upload action, and backend API integration.
+    Supports single and multiple file uploads with batch processing.
     """
 
     # Section header for document upload
     st.header("Upload Your Document (PDF only)")
 
-    # Collapsible section for uploading a new document
+    # Collapsible section for uploading documents
     with st.expander("Add a New Document"):
 
-        # File uploader widget (PDF restricted)
-        uploaded_file = st.file_uploader(
-            "Select a PDF file to add to the knowledge base",
+        # File uploader widget (PDF restricted, multiple files supported)
+        uploaded_files = st.file_uploader(
+            "Select PDF file(s) to add to the knowledge base - Multiple files supported",
             type="pdf",
-            key="pdf_uploader"
+            key="pdf_uploader",
+            accept_multiple_files=True
         )
 
         # Button to trigger the upload request
         if st.button("Upload PDF", key="upload_pdf_button"):
 
-            # Proceed only if a file is selected
-            if uploaded_file is not None:
-                # Display spinner while processing
-                with st.spinner(f"Uploading and processing '{uploaded_file.name}'..."):
-                    try:
-                        # Send the file to the FastAPI backend for processing
-                        upload_data = upload_document_to_backend(
-                            fastapi_base_url,
-                            uploaded_file
-                        )
+            # Proceed only if files are selected
+            if uploaded_files is not None and len(uploaded_files) > 0:
+                # Validate file count
+                max_files = 10
+                if len(uploaded_files) > max_files:
+                    st.error(f"Too many files selected. Maximum allowed: {max_files} files.")
+                else:
+                    total_files = len(uploaded_files)
 
-                        # Display success message with backend response details
-                        st.success(
-                            f"Upload complete: '{upload_data.get('filename')}'. "
-                        )
+                    # Track results
+                    successful_uploads = []
+                    failed_uploads = []
 
-                    except Exception as e:
-                        # Handle any errors from backend or network
-                        st.error(f"Upload failed: {e}")
+                    # Display spinner while processing
+                    with st.spinner(f"Uploading and processing {total_files} file(s)..."):
+                        try:
+                            # Use batch upload for all files (even single file)
+                            batch_response = upload_documents_batch_to_backend(fastapi_base_url, uploaded_files)
+
+                            # Process results from batch response
+                            for result in batch_response.get('results', []):
+                                if result['status'] == 'success':
+                                    successful_uploads.append({
+                                        'filename': result['filename'],
+                                        'chunks': result['processed_chunks']
+                                    })
+                                else:
+                                    failed_uploads.append({
+                                        'filename': result['filename'],
+                                        'error': result['error_message']
+                                    })
+                        except Exception as e:
+                            # If batch upload fails entirely, mark all as failed
+                            for uploaded_file in uploaded_files:
+                                failed_uploads.append({
+                                    'filename': uploaded_file.name,
+                                    'error': str(e)
+                                })
+
+                    # Display results summary
+                    if successful_uploads:
+                        st.success(f"Upload complete: {len(successful_uploads)}/{total_files} file(s) processed successfully.")
+                        with st.expander("View upload details", expanded=False):
+                            for upload in successful_uploads:
+                                st.markdown(f"✓ **{upload['filename']}** - {upload['chunks']} chunks")
+
+                    # Display failures
+                    if failed_uploads:
+                        st.error(f"Upload failed: {len(failed_uploads)}/{total_files} file(s) failed.")
+                        with st.expander("View error details", expanded=True):
+                            for upload in failed_uploads:
+                                st.markdown(f"✗ **{upload['filename']}**")
+                                st.code(f"Error: {upload['error']}", language=None)
 
             else:
                 # Warn the user if they clicked upload with no file selected
                 st.warning("Please select a PDF file before clicking 'Upload PDF'.")
+
+    # Custom CSS for button styling (Lahari's design)
     st.markdown("""
     <style>
         .stButton>button {
