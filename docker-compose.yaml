@@ -1,38 +1,24 @@
 version: "3.8"
 services:
   app:
-    image: sumana/be:latest
+    image: aydo/be:latest
     build:
       context: .
       dockerfile: be.Dockerfile
     ports:
       - "8000:8000"
     platform: linux/amd64
-    environment:
-      - PINECONE_API_KEY=""
-      - PINECONE_ENVIRONMENT=""
-      - PINECONE_INDEX_NAME=""
-      - OPENAI_API_KEY=""
-      - TAVILY_API_KEY=""
-      - DOC_SOURCE_DIR=""
-      - EMBED_MODEL=""
-      - FASTAPI_BASE_URL=""
+    env_file:
+      - .env
   
   frontend:
-    image: sumana/fe:latest
+    image: aydo/fe:latest
     build:
       context: .
       dockerfile: fe.Dockerfile
     ports:
       - "8501:8501"
     platform: linux/amd64
-    environment:
-      - PINECONE_API_KEY=""
-      - PINECONE_ENVIRONMENT=""
-      - PINECONE_INDEX_NAME=""
-      - OPENAI_API_KEY=""
-      - TAVILY_API_KEY=""
-      - DOC_SOURCE_DIR=""
-      - EMBED_MODEL=""
-      - FASTAPI_BASE_URL=""
+    env_file:
+      - .env
       

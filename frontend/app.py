@@ -50,10 +50,15 @@ def main():
     fastapi_base_url = FRONTEND_CONFIG["FASTAPI_BASE_URL"]
 
     # Path to custom assistant avatar (favicon)
-    # Using absolute path to ensure it works regardless of where the app is run from
+    # Using relative path from frontend directory (works in Docker and locally)
     import os
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    assistant_avatar = os.path.join(base_dir, "images", "favicon_io", "favicon-32x32.png")
+    # Check if running in Docker (/app/frontend) or locally
+    if os.path.exists("../images/favicon_io/favicon-32x32.png"):
+        assistant_avatar = "../images/favicon_io/favicon-32x32.png"
+    else:
+        # Fallback to absolute path for local development
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        assistant_avatar = os.path.join(base_dir, "images", "favicon_io", "favicon-32x32.png")
 
     # Render the primary UI components
     display_header()

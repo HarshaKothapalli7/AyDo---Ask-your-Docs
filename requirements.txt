@@ -14,7 +14,7 @@ langchain-core
 langchain-huggingface
 langchain-text-splitters
 langgraph
-multipart
+python-multipart
 pypdf
 requests
 sentence-transformers

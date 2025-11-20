@@ -13,6 +13,7 @@ WORKDIR /app
 COPY --from=builder /install /usr/local
 
 COPY frontend/ ./frontend
+COPY images/ ./images
 
 WORKDIR /app/frontend
 
