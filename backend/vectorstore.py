@@ -104,8 +104,8 @@ def add_document_to_vectorstore(text_content: str, filename: str = "unknown.pdf"
     upload_timestamp = datetime.now().isoformat()
 
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1000,
-        chunk_overlap=200,
+        chunk_size=1500,
+        chunk_overlap=250,
         add_start_index=True,
     )
 
@@ -136,9 +136,21 @@ def add_document_to_vectorstore(text_content: str, filename: str = "unknown.pdf"
     # Get the vectorstore instance (not the retriever) to add documents
     vectorstore = PineconeVectorStore(index_name=INDEX_NAME, embedding=embeddings)
 
-    # Add documents to the vector store
-    vectorstore.add_documents(documents)
-    print(f"Successfully added {len(documents)} chunks to Pinecone index '{INDEX_NAME}'.")
+    # Add documents to the vector store in batches for better performance
+    BATCH_SIZE = 50
+    total_batches = (len(documents) + BATCH_SIZE - 1) // BATCH_SIZE
+
+    if total_batches > 1:
+        print(f"Processing {len(documents)} chunks in {total_batches} batches...")
+        for i in range(0, len(documents), BATCH_SIZE):
+            batch = documents[i:i+BATCH_SIZE]
+            batch_num = (i // BATCH_SIZE) + 1
+            print(f"  Processing batch {batch_num}/{total_batches} ({len(batch)} chunks)...")
+            vectorstore.add_documents(batch)
+        print(f"Successfully added all {len(documents)} chunks to Pinecone index '{INDEX_NAME}'.")
+    else:
+        vectorstore.add_documents(documents)
+        print(f"Successfully added {len(documents)} chunks to Pinecone index '{INDEX_NAME}'.")
 
     # Update the most recent document ID and batch ID
     set_most_recent_document_id(document_id)

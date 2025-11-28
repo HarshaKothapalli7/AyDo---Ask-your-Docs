@@ -1,0 +1,380 @@
+================================================================================
+AyDo RAG System - Evaluation Report (WITH QUALITY SCORES)
+================================================================================
+
+EVALUATION METADATA
+--------------------------------------------------------------------------------
+Date: 2025-11-28T12:18:30.757839
+Scored Date: 2025-11-28T13:02:07.413256
+Backend URL: http://localhost:8000
+Session ID: eval_session_41bfa750
+Total Questions: 18
+
+
+================================================================================
+OVERALL PERFORMANCE METRICS
+================================================================================
+
+Latency Metrics:
+--------------------------------------------------------------------------------
+  Average Response Time: 8.009s
+  Median Response Time: 7.687s
+  Min Response Time: 3.793s
+  Max Response Time: 15.467s
+  P95 Response Time: 13.335s
+  Standard Deviation: 3.321s
+
+Retrieval Metrics:
+--------------------------------------------------------------------------------
+  Success Rate: 100.0%
+  Successful Retrievals: 13
+  Total Attempts: 13
+
+Routing Metrics:
+--------------------------------------------------------------------------------
+  Accuracy: 94.44%
+  Correct Routes: 17
+  Total Queries: 18
+
+Answer Quality Metrics:
+--------------------------------------------------------------------------------
+  Overall Quality Score: 88.24%
+  Total Score: 30/34
+  Scored Questions: 17
+  Excluded Questions: 1
+
+  Score Distribution:
+    Correct (2 pts): 13 questions
+    Partially Correct (1 pt): 4 questions
+    Incorrect (0 pts): 0 questions
+
+
+================================================================================
+SUMMARY TABLE FOR IEEE PAPER
+================================================================================
+
+Table 1: Overall Performance Metrics
+--------------------------------------------------------------------------------
+| Metric                    | Value         |
+| Average Latency           | 8.009s      |
+| P95 Latency               | 13.335s     |
+| Retrieval Success Rate    | 100.0%      |
+| Routing Accuracy          | 94.44%     |
+| Answer Quality Score      | 88.24%     |
+
+
+================================================================================
+PER-QUERY RESULTS WITH QUALITY SCORES
+================================================================================
+
+--------------------------------------------------------------------------------
+Question ID: 1 | Type: factual
+Quality Score: 2/2 ✓ CORRECT
+Question: What is RDF reification?
+
+Expected Answer:
+RDF reification is a mechanism that represents statements about RDF statements using rdf:Statement, rdf:subject, rdf:predicate, and rdf:object. It enables attaching provenance metadata but is inefficient and leads to triple bloat.
+
+Actual Answer:
+RDF reification is a method used to make statements about other RDF statements. This involves creating an RDF statement that describes another RDF statement by instantiating the RDF "subject," "predicate," and "object." Reification allows for the inclusion of metadata such as provenance or source information about a particular RDF statement. However, it has several shortcomings, such as the lack of formal semantics and scalability issues due to the increased number of triples required for describing each original statement. This complexity makes it cumbersome to write queries for retrieving statement-level provenance data, leading to the exploration of alternative approaches.
+
+Latency: 9.19s | Route: rag
+RAG Retrieved: True | Routing Correct: True
+
+--------------------------------------------------------------------------------
+Question ID: 2 | Type: factual
+Quality Score: 2/2 ✓ CORRECT
+Question: What is the GLUCOSE dataset?
+
+Expected Answer:
+GLUCOSE is a dataset of contextualized causal explanations derived from ROCStories, containing over 670K semi-structured causal statements and general rules grounded in ten dimensions of narrative reasoning.
+
+Actual Answer:
+The GLUCOSE dataset is a collection of semi-structured inference rules designed to capture commonsense knowledge in the form of causal explanations for story events. Each story is explained through ten causal dimensions, with each dimension including both a specific statement and a general rule. The dataset is created through a crowdsourcing process on the Amazon Mechanical Turk platform, involving a qualification test, a main data collection task, and an expert review to ensure quality. The dataset aims to provide structured commonsense knowledge that can be used to evaluate and improve language models. It is available for download, and more details about the trained models and data files can be found on GitHub.
+
+Latency: 7.958s | Route: rag
+RAG Retrieved: True | Routing Correct: True
+
+--------------------------------------------------------------------------------
+Question ID: 3 | Type: factual
+Quality Score: 2/2 ✓ CORRECT
+Question: What does the term 'provenance' mean in RDF systems?
+
+Expected Answer:
+Provenance refers to the origin or source of data, including how it was produced, extracted, or derived. It is crucial for trust, reliability assessment, decision support, and understanding data quality.
+
+Actual Answer:
+In RDF (Resource Description Framework) systems, the term 'provenance' refers to information about the origins and history of data. Provenance is used to develop trust in Semantic Web applications by providing details about how data was created, modified, and processed. It helps users understand the context and reliability of data, allowing for informed decision-making. Provenance is particularly important in areas like scientific data processing, workflow management, bioinformatics, and cybersecurity, where the credibility and traceability of data are crucial. The implementation of provenance in RDF can vary, involving different methodologies to capture and represent provenance information, such as extending the RDF data model or utilizing graphs that contain relational assertions.
+
+Latency: 8.305s | Route: rag
+RAG Retrieved: True | Routing Correct: True
+
+--------------------------------------------------------------------------------
+Question ID: 4 | Type: factual
+Quality Score: 1/2 ~ PARTIALLY CORRECT
+Question: What are the ten dimensions of explanation defined in GLUCOSE?
+
+Expected Answer:
+The ten dimensions describe causal relationships before and after an event X—covering direct causes, motivations, enabling states of location/possession, resulting events, emotional effects, changes in location or possession, and other property changes.
+
+Actual Answer:
+The context does not provide a detailed list of the ten dimensions of explanation defined in GLUCOSE. However, based on general knowledge, GLUCOSE captures ten dimensions of causal explanation related to events in a story. These dimensions involve understanding the causes, effects, and various attributes (such as location and possession) that might not be explicitly stated in the narrative. These dimensions help to align with human cognitive psychology in comprehending narratives by focusing on events, their timeline, causes, motivations, and emotional trajectories. If you need the specific dimensions, I recommend referring directly to the GLUCOSE documentation or related resources.
+
+Latency: 5.329s | Route: rag
+RAG Retrieved: True | Routing Correct: True
+
+--------------------------------------------------------------------------------
+Question ID: 5 | Type: factual
+Quality Score: 2/2 ✓ CORRECT
+Question: What is ethical decision-making as described in Ferrell et al.?
+
+Expected Answer:
+Ethical decision-making is a process of evaluating and choosing among alternatives in a manner consistent with ethical principles, balancing values such as fairness, responsibility, and societal expectations.
+
+Actual Answer:
+Ethical decision-making, as described by Ferrell et al., involves understanding how individuals and organizations make decisions that are evaluated as ethical or unethical by various stakeholders. The process includes several key components: ethical issue intensity, individual factors, organizational factors, and opportunity. These factors are interrelated and influence the evaluations and intentions behind decisions, ultimately leading to ethical or unethical behavior. The framework provided by Ferrell et al. is not a prescriptive guide for making ethical decisions but rather a model to help understand the factors and processes involved in ethical decision-making within business contexts. Recognizing an ethical issue is the first step, followed by evaluating its relevance or importance, which is influenced by the ethical sensitivity of individuals or groups.
+
+Latency: 5.218s | Route: rag
+RAG Retrieved: True | Routing Correct: True
+
+--------------------------------------------------------------------------------
+Question ID: 6 | Type: explanation
+Quality Score: 2/2 ✓ CORRECT
+Question: How does RDF* represent provenance?
+
+Expected Answer:
+RDF* enables embedded triples using the syntax <<s p o>> allowing metadata such as provenance to be directly attached without full reification.
+
+Actual Answer:
+RDF* is an extension of the RDF data model designed to better support the representation of provenance and other metadata about RDF triples. While the context provided does not specifically detail how RDF* represents provenance, it mentions that RDF* is one of the approaches that extend the RDF data model to provide alternatives to the traditional RDF reification for capturing provenance.
+
+In general, RDF* allows for the annotation of RDF triples by treating them as objects that can have properties. This enables the expression of metadata (such as provenance information) directly in the RDF graph without the need for complex reification or n-ary relations. This approach can help to simplify the representation of provenance by directly associating metadata with the triples they describe.
+
+Latency: 4.702s | Route: rag
+RAG Retrieved: True | Routing Correct: True
+
+--------------------------------------------------------------------------------
+Question ID: 7 | Type: explanation
+Quality Score: 2/2 ✓ CORRECT
+Question: How does GLUCOSE convert semi-structured explanations into natural language?
+
+Expected Answer:
+GLUCOSE fills predefined syntactic slots (subject, verb, object, preposition) and concatenates them deterministically to form well-structured natural-language inference rules.
+
+Actual Answer:
+GLUCOSE converts semi-structured explanations into natural language by using a format where specific variables and attributes are expressed in a structured manner. These semi-structured rules are then deterministically converted to natural language form by simply concatenating all the filled slots. This approach allows GLUCOSE to maintain expressivity while ensuring that the resulting explanations are consistent and easily comparable.
+
+Latency: 3.793s | Route: rag
+RAG Retrieved: True | Routing Correct: True
+
+--------------------------------------------------------------------------------
+Question ID: 8 | Type: explanation
+Quality Score: 2/2 ✓ CORRECT
+Question: How do named graphs capture provenance in RDF?
+
+Expected Answer:
+Named graphs represent RDF data as sets of triples grouped under graph IRIs, allowing one graph to hold assertions and another to encode provenance metadata linked via provenance vocabularies.
+
+Actual Answer:
+Named graphs capture provenance in RDF by allowing the grouping of RDF statements into distinct sets, each with a unique URI that can describe the provenance of the data within it. This approach facilitates the representation of provenance at the graph level, where a named graph can not only contain RDF statements (the assertion graph) but also have another graph (the provenance graph) that details the provenance information. This separation enables the documentation of where the data originated from, how it was derived, or any other relevant provenance metadata. By using named graphs, it is possible to track and manage the provenance of RDF data more effectively, as each named graph can be associated with specific provenance information that applies to all the statements within that graph.
+
+Latency: 7.687s | Route: rag
+RAG Retrieved: True | Routing Correct: True
+
+--------------------------------------------------------------------------------
+Question ID: 9 | Type: explanation
+Quality Score: 2/2 ✓ CORRECT
+Question: How does cognitive psychology influence GLUCOSE’s design?
+
+Expected Answer:
+GLUCOSE uses cognitive theories showing that humans explain events using causal chains, motivations, emotional states, and changes in attributes, inspiring the ten explanatory dimensions.
+
+Actual Answer:
+Cognitive psychology influences GLUCOSE’s design by inspiring the ten dimensions of causal explanations that it captures. These dimensions are meant to reflect the way humans make causal inferences, often based on implicit causes and effects related to events, locations, possessions, and other attributes. The design draws on research that shows humans typically choose relevant causes for events based on context and link specific situations to general theories to enable broader generalizations. This approach aims to scaffold cognitive development in AI systems, allowing them to better generalize and reason causally, similar to human cognition. By grounding explanations in context and explicitly stating general rules, GLUCOSE seeks to enhance AI's ability to fill reasoning gaps and create mental models akin to human understanding.
+
+Latency: 5.731s | Route: rag
+RAG Retrieved: True | Routing Correct: True
+
+--------------------------------------------------------------------------------
+Question ID: 10 | Type: explanation
+Quality Score: 2/2 ✓ CORRECT
+Question: How does Ferrell’s text define the role of values in business ethics?
+
+Expected Answer:
+Values guide ethical decision-making by shaping perceptions of fairness, responsibility, and acceptable behavior within organizations and society.
+
+Actual Answer:
+Ferrell's text defines values in business ethics as enduring beliefs and ideals that are socially enforced. These values, such as teamwork, trust, and integrity, often stem from organizational or industry best practices and play a critical role in guiding ethical decision-making within a business. Values and judgments significantly influence ethical decisions, and businesses are encouraged to hire individuals with sound moral principles to ensure ethical conduct. Additionally, core values are central to an organization and provide directions for action, relating directly to stakeholder management and helping to build a strong normative structure that supports ethical decision-making.
+
+Latency: 5.121s | Route: rag
+RAG Retrieved: True | Routing Correct: True
+
+--------------------------------------------------------------------------------
+Question ID: 11 | Type: comparison
+Quality Score: 2/2 ✓ CORRECT
+Question: What is the difference between RDF reification and N-Quads?
+
+Expected Answer:
+Reification uses rdf:Statement with subject/predicate/object properties, causing triple bloat, while N-Quads add a fourth element (the graph name) enabling provenance without reifying every triple.
+
+Actual Answer:
+RDF reification and N-Quads are both methods used to add metadata or provenance information to RDF data, but they approach this task differently.
+
+**RDF Reification**:
+- Reification involves creating additional RDF statements to describe an RDF triple. This means making statements about statements, effectively turning a single triple into multiple triples. For instance, to reify a triple, you would create new triples to separately describe the subject, predicate, and object, along with a statement capturing the provenance or other metadata. This can lead to a significant increase in the number of triples (often at least four times the original number of triples), which is referred to as "triple bloat." This approach is often criticized for not scaling well and lacking formal semantics.
+
+**N-Quads**:
+- N-Quads is an extension of RDF that adds a fourth element to the standard RDF triple, effectively transforming it into a quadruple. This fourth element is typically used to specify the context or graph name, which can be used to capture provenance information or other metadata about the triple. N-Quads are more efficient than reification because they do not require the creation of additional triples to capture metadata. This approach is more straightforward and scales better, as it avoids the complexity and increased data volume associated with reification.
+
+In summary, while RDF reification increases the number of triples to capture metadata, N-Quads extend the RDF data model to include this information more directly and efficiently.
+
+Latency: 12.803s | Route: rag
+RAG Retrieved: True | Routing Correct: True
+
+--------------------------------------------------------------------------------
+Question ID: 12 | Type: comparison
+Quality Score: 2/2 ✓ CORRECT
+Question: What is the difference between specific statements and general rules in GLUCOSE?
+
+Expected Answer:
+Specific statements are grounded in a story context, while general rules abstract the same reasoning pattern to apply broadly across scenarios.
+
+Actual Answer:
+In GLUCOSE, specific statements and general rules are part of a structured approach to explain story events. A specific statement is grounded in the context of a particular story, providing a detailed explanation tailored to that context. In contrast, a general rule is a broader statement that is generalized to apply to multiple contexts beyond the specific story. Each specific statement and its corresponding general rule follow a common template of antecedent, connective, and consequent, and are crafted using syntactic slots such as subject, verb, object, and prepositions. These slots have predefined options to choose from, ensuring that the explanations maintain structured semantics. The general rule requires further generalization of the antecedent and consequent to ensure it is a valid statement applicable to various situations, often involving transformations such as replacing specific entities with variables or generalizing actions.
+
+Latency: 15.467s | Route: rag
+RAG Retrieved: True | Routing Correct: True
+
+--------------------------------------------------------------------------------
+Question ID: 13 | Type: comparison
+Quality Score: 2/2 ✓ CORRECT
+Question: What is the difference between ethical dilemmas and ethical issues in Ferrell et al.?
+
+Expected Answer:
+Ethical issues involve identifiable problems requiring moral evaluation, while ethical dilemmas involve choosing between two conflicting ethical values with no clear right answer.
+
+Actual Answer:
+According to Ferrell et al., the difference between ethical issues and ethical dilemmas lies in the nature of the choices involved:
+
+1. **Ethical Issues**: These are problems, situations, or opportunities that require an individual, group, or organization to choose among several actions that will be evaluated as right or wrong, ethical or unethical. Ethical issues require consideration and evaluation but offer a clear distinction between ethical and unethical choices.
+
+2. **Ethical Dilemmas**: These are problems, situations, or opportunities where an individual, group, or organization must choose among several actions that all have negative outcomes. Unlike ethical issues, there is no clear right or ethical choice in a dilemma; the options are only less unethical or illegal as perceived by stakeholders. 
+
+In summary, ethical issues involve choices with potentially clear ethical and unethical paths, whereas ethical dilemmas involve choices where all options may lead to unfavorable results.
+
+Latency: 4.902s | Route: rag
+RAG Retrieved: True | Routing Correct: True
+
+--------------------------------------------------------------------------------
+Question ID: 14 | Type: out_of_scope
+Quality Score: 0/2 ✗ INCORRECT
+Question: How do I bake a chocolate cake?
+
+Expected Answer:
+N/A
+
+Actual Answer:
+N/A
+
+Latency: 2.3510019779205322s | Route: unknown
+RAG Retrieved: False | Routing Correct: False
+
+--------------------------------------------------------------------------------
+Question ID: 15 | Type: out_of_scope
+Quality Score: 1/2 ~ PARTIALLY CORRECT
+Question: How do I fix Wi-Fi connection issues on my laptop?
+
+Expected Answer:
+Out-of-scope. The uploaded documents do not cover computer troubleshooting.
+
+Actual Answer:
+To fix Wi-Fi connection issues on your laptop, you can try the following steps:
+
+1. **Restart Your Laptop and Router**: Sometimes, a simple restart can resolve connectivity issues.
+
+2. **Check Wi-Fi Settings**: Make sure Wi-Fi is enabled on your laptop. You can usually find this in the network settings or by checking the Wi-Fi icon in your system tray.
+
+3. **Forget and Reconnect to the Network**: Go to your network settings, select the Wi-Fi network you are trying to connect to, and choose the option to forget the network. Then, reconnect by selecting the network and entering the password again.
+
+4. **Update Network Drivers**: Outdated or corrupted drivers can cause connectivity problems. Check for updates to your network drivers through your laptop manufacturer's website or use the device manager.
+
+5. **Check Airplane Mode**: Ensure that your laptop isn't set to airplane mode, which disables all wireless communications.
+
+6. **Move Closer to the Router**: Physical obstructions or distance from the router can weaken the signal. Try moving closer to see if the connection improves.
+
+7. **Check for Network Interference**: Other electronic devices can interfere with Wi-Fi signals. Try to identify and eliminate possible sources of interference.
+
+8. **Use Network Troubleshooter**: Most operating systems have a built-in network troubleshooter that can automatically detect and fix common issues.
+
+9. **Check Router Settings**: Ensure your router is configured correctly, and no settings have been changed that could prevent your laptop from connecting.
+
+If none of these steps work, it may be helpful to contact your internet service provider for further assistance or to check if there are any outages in your area.
+
+Latency: 10.758s | Route: rag
+RAG Retrieved: True | Routing Correct: True
+
+--------------------------------------------------------------------------------
+Question ID: 16 | Type: web_needed
+Quality Score: 1/2 ~ PARTIALLY CORRECT
+Question: What new provenance standards has W3C discussed in 2024?
+
+Expected Answer:
+Requires current web search; provenance standardization efforts after 2020 must be checked online.
+
+Actual Answer:
+The provided context does not mention any specific provenance standards that the W3C has discussed in 2024. Based on my general knowledge, the W3C (World Wide Web Consortium) often engages in discussions and developments related to web standards, including provenance data, which refers to information about the origins, context, and history of data. However, without specific information from the context or recent updates beyond my training data, I cannot provide details about any new provenance standards discussed by the W3C in 2024. For the most accurate and up-to-date information, I recommend checking the W3C's official website or recent publications directly.
+
+Latency: 11.977s | Route: web
+RAG Retrieved: False | Routing Correct: True
+
+--------------------------------------------------------------------------------
+Question ID: 17 | Type: web_needed
+Quality Score: 1/2 ~ PARTIALLY CORRECT
+Question: What are the latest applications of GLUCOSE-style reasoning in 2024 AI research?
+
+Expected Answer:
+Requires current web information about recent research that applies GLUCOSE-like structured causal reasoning.
+
+Actual Answer:
+The context provided does not contain relevant information about GLUCOSE-style reasoning in AI research for 2024. However, based on general knowledge, GLUCOSE (GeneraLized and COntextualized Story Explanation) is a framework used in AI for reasoning about causal relationships and narrative understanding. In 2024, applications of GLUCOSE-style reasoning in AI research might include:
+
+1. **Improved Narrative Understanding**: Enhancing AI's ability to understand and generate human-like stories by identifying causal relationships and context within narratives.
+
+2. **Causal Inference in Complex Systems**: Applying GLUCOSE-style reasoning to infer causal relationships in complex systems, such as healthcare for predicting disease progression or treatment outcomes.
+
+3. **Language Models**: Integration with large language models to refine question-answering systems, making them more adept at understanding context and causality.
+
+4. **Educational Tools**: Development of AI-driven educational tools that use narrative understanding to create more engaging and effective learning experiences.
+
+5. **Human-AI Collaboration**: Facilitating better human-AI collaboration by enabling AI systems to understand and predict human behavior based on narrative contexts.
+
+These applications reflect the ongoing trend of leveraging AI for more nuanced understanding and decision-making processes across various domains.
+
+Latency: 10.249s | Route: web
+RAG Retrieved: False | Routing Correct: True
+
+--------------------------------------------------------------------------------
+Question ID: 18 | Type: web_needed
+Quality Score: 2/2 ✓ CORRECT
+Question: What major business ethics scandals occurred in 2024?
+
+Expected Answer:
+Requires web search; recent scandals are not documented in the 2016 textbook.
+
+Actual Answer:
+In 2024, some major business ethics scandals included:
+
+1. **Raytheon and RTX**: These companies faced significant ethical issues, including bribing foreign officials to win contracts, providing false pricing information, fraudulently inflating prices on government contracts, and allowing foreign agents to access U.S. military secrets regarding airplanes and missile systems.
+
+2. **Child Labor Concerns**: The compliance community was urged to improve risk assessments for child labor in U.S. supply chains, with the Department of Labor seeking more authority to address and punish companies benefiting from it.
+
+3. **Fashion Brands**: Brands like Skims, Victoria's Secret, Zara, and Nike were criticized for unethical labor practices. Skims and others were accused of exploiting garment workers in countries like Bangladesh and Vietnam. Zara faced protests for greenwashing and unethical supply chain practices, while Nike was accused of prioritizing profits over ethical labor practices.
+
+4. **Anthropic AI Case**: The AI company Anthropic claimed that using copyrighted content in training data for large language models counts as "fair use," sparking a legal and ethical debate over AI's use of copyrighted materials.
+
+These incidents highlight ongoing challenges in business ethics related to labor practices, compliance with legal standards, and the ethical use of technology.
+
+Latency: 6.958s | Route: web
+RAG Retrieved: False | Routing Correct: True
+
+

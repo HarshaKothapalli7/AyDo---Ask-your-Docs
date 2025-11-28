@@ -10,7 +10,12 @@ services:
     platform: linux/amd64
     env_file:
       - .env
-  
+    volumes:
+      - huggingface-cache:/root/.cache/huggingface
+    environment:
+      - TRANSFORMERS_CACHE=/root/.cache/huggingface
+      - HF_HOME=/root/.cache/huggingface
+
   frontend:
     image: aydo/fe:latest
     build:
@@ -21,4 +26,6 @@ services:
     platform: linux/amd64
     env_file:
       - .env
-      
+
+volumes:
+  huggingface-cache:

@@ -10,10 +10,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from langchain_core.messages import HumanMessage, AIMessage
 from langgraph.checkpoint.memory import MemorySaver
-from langchain_community.document_loaders import PyPDFLoader
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
+import pypdf
 
 
 from agent import rag_agent
@@ -54,6 +54,20 @@ app.add_middleware(
 
 # In-memory session manager for LangGraph checkpoints (for demonstration)
 memory = MemorySaver()
+
+# --- Startup Event: Pre-warm Embedding Model ---
+@app.on_event("startup")
+async def warmup():
+    """Pre-load embedding model and Pinecone connection on startup to eliminate cold-start delays"""
+    logger.info("Starting embedding model warmup...")
+    try:
+        from vectorstore import embeddings
+        # Force model load by embedding a test query
+        embeddings.embed_query("warmup test query")
+        logger.info("Embedding model successfully loaded and ready")
+    except Exception as e:
+        logger.error(f"Warning: Failed to pre-load embedding model: {e}")
+        logger.error("First upload may experience additional latency")
 
 # --- Pydantic Models for API ---
 class TraceEvent(BaseModel):
@@ -139,24 +153,29 @@ async def upload_document(request: Request, file: UploadFile = File(...)):
     logger.info(f"Received PDF for upload: {file.filename} ({file_size / 1024 / 1024:.2f} MB). Saved to {temp_file_path}")
 
     try:
-        loader = PyPDFLoader(temp_file_path)
-        documents = loader.load()
+        # Fast PDF text extraction using pypdf
+        text_parts = []
+        with open(temp_file_path, 'rb') as f:
+            pdf_reader = pypdf.PdfReader(f)
+            num_pages = len(pdf_reader.pages)
+            logger.info(f"Extracting text from {num_pages} pages...")
+            for page in pdf_reader.pages:
+                text_parts.append(page.extract_text())
 
-        total_chunks_added = 0
+        full_text_content = "\n\n".join(text_parts)
+
         document_id = None
-        if documents:
-            full_text_content = "\n\n".join([doc.page_content for doc in documents])
+        if full_text_content.strip():
             # Pass filename to add_document_to_vectorstore for metadata tracking
             document_id = add_document_to_vectorstore(full_text_content, filename=file.filename)
-            total_chunks_added = len(documents)
-            logger.info(f"Successfully indexed {total_chunks_added} chunks from {file.filename} with document_id: {document_id}")
+            logger.info(f"Successfully indexed document from {file.filename} with document_id: {document_id}")
         else:
             logger.warning(f"No content extracted from {file.filename}")
 
         return DocumentUploadResponse(
             message=f"PDF '{file.filename}' successfully uploaded and indexed. Document ID: {document_id}",
             filename=file.filename,
-            processed_chunks=total_chunks_added
+            processed_chunks=num_pages
         )
     except Exception as e:
         logger.error(f"Error processing PDF document {file.filename}: {str(e)}", exc_info=True)
@@ -240,20 +259,24 @@ async def upload_documents_batch(request: Request, files: List[UploadFile] = Fil
                 temp_file_path = tmp_file.name
 
             try:
-                # Process PDF
-                loader = PyPDFLoader(temp_file_path)
-                documents = loader.load()
+                # Fast PDF text extraction using pypdf
+                text_parts = []
+                with open(temp_file_path, 'rb') as f:
+                    pdf_reader = pypdf.PdfReader(f)
+                    num_pages = len(pdf_reader.pages)
+                    for page in pdf_reader.pages:
+                        text_parts.append(page.extract_text())
 
-                if documents:
-                    full_text_content = "\n\n".join([doc.page_content for doc in documents])
+                full_text_content = "\n\n".join(text_parts)
+
+                if full_text_content.strip():
                     document_id = add_document_to_vectorstore(full_text_content, filename=file.filename, batch_id=batch_id)
-                    total_chunks = len(documents)
 
                     file_result.status = "success"
-                    file_result.processed_chunks = total_chunks
+                    file_result.processed_chunks = num_pages
                     file_result.document_id = document_id
                     successful_count += 1
-                    logger.info(f"Successfully processed {file.filename}: {total_chunks} chunks, ID: {document_id}, Batch ID: {batch_id}")
+                    logger.info(f"Successfully processed {file.filename}: {num_pages} pages, ID: {document_id}, Batch ID: {batch_id}")
                 else:
                     file_result.error_message = "No content extracted from PDF."
                     file_result.status = "failed"

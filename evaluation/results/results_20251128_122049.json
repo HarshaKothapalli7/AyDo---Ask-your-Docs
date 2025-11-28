@@ -1,0 +1,804 @@
+{
+  "metadata": {
+    "evaluation_date": "2025-11-28T12:18:30.757839",
+    "backend_url": "http://localhost:8000",
+    "session_id": "eval_session_41bfa750",
+    "total_questions": 18
+  },
+  "query_results": [
+    {
+      "question_id": 1,
+      "question": "What is RDF reification?",
+      "query_type": "factual",
+      "expected_answer": "RDF reification is a mechanism that represents statements about RDF statements using rdf:Statement, rdf:subject, rdf:predicate, and rdf:object. It enables attaching provenance metadata but is inefficient and leads to triple bloat.",
+      "actual_answer": "RDF reification is a method used to make statements about other RDF statements. This involves creating an RDF statement that describes another RDF statement by instantiating the RDF \"subject,\" \"predicate,\" and \"object.\" Reification allows for the inclusion of metadata such as provenance or source information about a particular RDF statement. However, it has several shortcomings, such as the lack of formal semantics and scalability issues due to the increased number of triples required for describing each original statement. This complexity makes it cumbersome to write queries for retrieving statement-level provenance data, leading to the exploration of alternative approaches.",
+      "latency": 9.19,
+      "success": true,
+      "route_taken": "rag",
+      "rag_retrieved": true,
+      "routing_correct": true,
+      "trace_events": [
+        {
+          "step": 1,
+          "node_name": "router",
+          "description": "Router decided: 'rag'",
+          "details": {
+            "decision": "rag",
+            "reason": "Based on initial query analysis."
+          },
+          "event_type": "router_decision"
+        },
+        {
+          "step": 2,
+          "node_name": "rag_lookup",
+          "description": "RAG Lookup performed from Provenance-aware knowledge representation_ A survey of data model.pdf. Content found and deemed sufficient. Proceeding to answer.",
+          "details": {
+            "retrieved_content_summary": "[Source: Provenance-aware knowledge representation_ A survey of data model.pdf, Chunk 19.0]\nL. F. Sikos, D. Philp\nFig. 1 An n-ary relationship AS_Relation\nAPNIC\n:hasASNumber\nrdf:type\n:accordingTo\n:hasASNumber 38719DREAMSCAPE-AS-AP _:AS_Relation_1\nThe implementation issues arising from the design of\n...",
+            "sufficiency_verdict": "Sufficient",
+            "source_documents": [
+              "Provenance-aware knowledge representation_ A survey of data model.pdf"
+            ]
+          },
+          "event_type": "rag_action"
+        },
+        {
+          "step": 3,
+          "node_name": "answer",
+          "description": "Generating final answer using gathered context.",
+          "details": {},
+          "event_type": "answer_generation"
+        }
+      ],
+      "answer_quality_score": 2
+    },
+    {
+      "question_id": 2,
+      "question": "What is the GLUCOSE dataset?",
+      "query_type": "factual",
+      "expected_answer": "GLUCOSE is a dataset of contextualized causal explanations derived from ROCStories, containing over 670K semi-structured causal statements and general rules grounded in ten dimensions of narrative reasoning.",
+      "actual_answer": "The GLUCOSE dataset is a collection of semi-structured inference rules designed to capture commonsense knowledge in the form of causal explanations for story events. Each story is explained through ten causal dimensions, with each dimension including both a specific statement and a general rule. The dataset is created through a crowdsourcing process on the Amazon Mechanical Turk platform, involving a qualification test, a main data collection task, and an expert review to ensure quality. The dataset aims to provide structured commonsense knowledge that can be used to evaluate and improve language models. It is available for download, and more details about the trained models and data files can be found on GitHub.",
+      "latency": 7.958,
+      "success": true,
+      "route_taken": "rag",
+      "rag_retrieved": true,
+      "routing_correct": true,
+      "trace_events": [
+        {
+          "step": 1,
+          "node_name": "router",
+          "description": "Router decided: 'rag'",
+          "details": {
+            "decision": "rag",
+            "reason": "Based on initial query analysis."
+          },
+          "event_type": "router_decision"
+        },
+        {
+          "step": 2,
+          "node_name": "rag_lookup",
+          "description": "RAG Lookup performed from GLUCOSE.pdf. Content found and deemed sufficient. Proceeding to answer.",
+          "details": {
+            "retrieved_content_summary": "[Source: GLUCOSE.pdf, Chunk 51.0]\nWe would like to thank the hundreds of amazing\ncrowdworkers whose dedication made this work\npossible. We thank David Ferrucci for his valuable\ninsights and support throughout the GLUCOSE\nproject. We thank Andy Beck for the discussions\naround the GLUCOSE knowledge mo...",
+            "sufficiency_verdict": "Sufficient",
+            "source_documents": [
+              "GLUCOSE.pdf"
+            ]
+          },
+          "event_type": "rag_action"
+        },
+        {
+          "step": 3,
+          "node_name": "answer",
+          "description": "Generating final answer using gathered context.",
+          "details": {},
+          "event_type": "answer_generation"
+        }
+      ],
+      "answer_quality_score": 2
+    },
+    {
+      "question_id": 3,
+      "question": "What does the term 'provenance' mean in RDF systems?",
+      "query_type": "factual",
+      "expected_answer": "Provenance refers to the origin or source of data, including how it was produced, extracted, or derived. It is crucial for trust, reliability assessment, decision support, and understanding data quality.",
+      "actual_answer": "In RDF (Resource Description Framework) systems, the term 'provenance' refers to information about the origins and history of data. Provenance is used to develop trust in Semantic Web applications by providing details about how data was created, modified, and processed. It helps users understand the context and reliability of data, allowing for informed decision-making. Provenance is particularly important in areas like scientific data processing, workflow management, bioinformatics, and cybersecurity, where the credibility and traceability of data are crucial. The implementation of provenance in RDF can vary, involving different methodologies to capture and represent provenance information, such as extending the RDF data model or utilizing graphs that contain relational assertions.",
+      "latency": 8.305,
+      "success": true,
+      "route_taken": "rag",
+      "rag_retrieved": true,
+      "routing_correct": true,
+      "trace_events": [
+        {
+          "step": 1,
+          "node_name": "router",
+          "description": "Router decided: 'rag'",
+          "details": {
+            "decision": "rag",
+            "reason": "Based on initial query analysis."
+          },
+          "event_type": "router_decision"
+        },
+        {
+          "step": 2,
+          "node_name": "rag_lookup",
+          "description": "RAG Lookup performed from Provenance-aware knowledge representation_ A survey of data model.pdf. Content found and deemed sufficient. Proceeding to answer.",
+          "details": {
+            "retrieved_content_summary": "[Source: Provenance-aware knowledge representation_ A survey of data model.pdf, Chunk 9.0]\n12 Note that provenance is a complex term, and its usage varies greatly\nin different contexts [ 6].\n13 This can be circumvented by using alternate knowledge representa-\ntions, such as considering entities as e...",
+            "sufficiency_verdict": "Sufficient",
+            "source_documents": [
+              "Provenance-aware knowledge representation_ A survey of data model.pdf"
+            ]
+          },
+          "event_type": "rag_action"
+        },
+        {
+          "step": 3,
+          "node_name": "answer",
+          "description": "Generating final answer using gathered context.",
+          "details": {},
+          "event_type": "answer_generation"
+        }
+      ],
+      "answer_quality_score": 2
+    },
+    {
+      "question_id": 4,
+      "question": "What are the ten dimensions of explanation defined in GLUCOSE?",
+      "query_type": "factual",
+      "expected_answer": "The ten dimensions describe causal relationships before and after an event X\u2014covering direct causes, motivations, enabling states of location/possession, resulting events, emotional effects, changes in location or possession, and other property changes.",
+      "actual_answer": "The context does not provide a detailed list of the ten dimensions of explanation defined in GLUCOSE. However, based on general knowledge, GLUCOSE captures ten dimensions of causal explanation related to events in a story. These dimensions involve understanding the causes, effects, and various attributes (such as location and possession) that might not be explicitly stated in the narrative. These dimensions help to align with human cognitive psychology in comprehending narratives by focusing on events, their timeline, causes, motivations, and emotional trajectories. If you need the specific dimensions, I recommend referring directly to the GLUCOSE documentation or related resources.",
+      "latency": 5.329,
+      "success": true,
+      "route_taken": "rag",
+      "rag_retrieved": true,
+      "routing_correct": true,
+      "trace_events": [
+        {
+          "step": 1,
+          "node_name": "router",
+          "description": "Router decided: 'rag'",
+          "details": {
+            "decision": "rag",
+            "reason": "Based on initial query analysis."
+          },
+          "event_type": "router_decision"
+        },
+        {
+          "step": 2,
+          "node_name": "rag_lookup",
+          "description": "RAG Lookup performed from GLUCOSE.pdf. Content found and deemed sufficient. Proceeding to answer.",
+          "details": {
+            "retrieved_content_summary": "[Source: GLUCOSE.pdf, Chunk 15.0]\nevent/state, and GLUCOSE general rules can re-\nfer to indexed variables such as \u201cSomeone A\u201d or\n\u201cSomewhereC.\u201d Beyond these major shortcomings,\nATOMIC also does not cover many commonsense\nknowledge types in GLUCOSE, including change\nof attributes such as location, whi...",
+            "sufficiency_verdict": "Sufficient",
+            "source_documents": [
+              "GLUCOSE.pdf"
+            ]
+          },
+          "event_type": "rag_action"
+        },
+        {
+          "step": 3,
+          "node_name": "answer",
+          "description": "Generating final answer using gathered context.",
+          "details": {},
+          "event_type": "answer_generation"
+        }
+      ],
+      "answer_quality_score": 1
+    },
+    {
+      "question_id": 5,
+      "question": "What is ethical decision-making as described in Ferrell et al.?",
+      "query_type": "factual",
+      "expected_answer": "Ethical decision-making is a process of evaluating and choosing among alternatives in a manner consistent with ethical principles, balancing values such as fairness, responsibility, and societal expectations.",
+      "actual_answer": "Ethical decision-making, as described by Ferrell et al., involves understanding how individuals and organizations make decisions that are evaluated as ethical or unethical by various stakeholders. The process includes several key components: ethical issue intensity, individual factors, organizational factors, and opportunity. These factors are interrelated and influence the evaluations and intentions behind decisions, ultimately leading to ethical or unethical behavior. The framework provided by Ferrell et al. is not a prescriptive guide for making ethical decisions but rather a model to help understand the factors and processes involved in ethical decision-making within business contexts. Recognizing an ethical issue is the first step, followed by evaluating its relevance or importance, which is influenced by the ethical sensitivity of individuals or groups.",
+      "latency": 5.218,
+      "success": true,
+      "route_taken": "rag",
+      "rag_retrieved": true,
+      "routing_correct": true,
+      "trace_events": [
+        {
+          "step": 1,
+          "node_name": "router",
+          "description": "Router decided: 'rag'",
+          "details": {
+            "decision": "rag",
+            "reason": "Based on initial query analysis."
+          },
+          "event_type": "router_decision"
+        },
+        {
+          "step": 2,
+          "node_name": "rag_lookup",
+          "description": "RAG Lookup performed from O.C. Ferrell_ John P. Fraedrich_ Ferrell William - Business Ethics_ Ethical Decision Making & Cases-South Western Educational Publishing (2016).pdf. Content found and deemed sufficient. Proceeding to answer.",
+          "details": {
+            "retrieved_content_summary": "[Source: O.C. Ferrell_ John P. Fraedrich_ Ferrell William - Business Ethics_ Ethical Decision Making & Cases-South Western Educational Publishing (2016).pdf, Chunk 791.0]\nfoundation for establishing core values to provide enduring beliefs about appropriate con-\nduct. Therefore, we provide both a des...",
+            "sufficiency_verdict": "Sufficient",
+            "source_documents": [
+              "O.C. Ferrell_ John P. Fraedrich_ Ferrell William - Business Ethics_ Ethical Decision Making & Cases-South Western Educational Publishing (2016).pdf"
+            ]
+          },
+          "event_type": "rag_action"
+        },
+        {
+          "step": 3,
+          "node_name": "answer",
+          "description": "Generating final answer using gathered context.",
+          "details": {},
+          "event_type": "answer_generation"
+        }
+      ],
+      "answer_quality_score": 2
+    },
+    {
+      "question_id": 6,
+      "question": "How does RDF* represent provenance?",
+      "query_type": "explanation",
+      "expected_answer": "RDF* enables embedded triples using the syntax <<s p o>> allowing metadata such as provenance to be directly attached without full reification.",
+      "actual_answer": "RDF* is an extension of the RDF data model designed to better support the representation of provenance and other metadata about RDF triples. While the context provided does not specifically detail how RDF* represents provenance, it mentions that RDF* is one of the approaches that extend the RDF data model to provide alternatives to the traditional RDF reification for capturing provenance.\n\nIn general, RDF* allows for the annotation of RDF triples by treating them as objects that can have properties. This enables the expression of metadata (such as provenance information) directly in the RDF graph without the need for complex reification or n-ary relations. This approach can help to simplify the representation of provenance by directly associating metadata with the triples they describe.",
+      "latency": 4.702,
+      "success": true,
+      "route_taken": "rag",
+      "rag_retrieved": true,
+      "routing_correct": true,
+      "trace_events": [
+        {
+          "step": 1,
+          "node_name": "router",
+          "description": "Router decided: 'rag'",
+          "details": {
+            "decision": "rag",
+            "reason": "Based on initial query analysis."
+          },
+          "event_type": "router_decision"
+        },
+        {
+          "step": 2,
+          "node_name": "rag_lookup",
+          "description": "RAG Lookup performed from Provenance-aware knowledge representation_ A survey of data model.pdf. Content found and deemed sufficient. Proceeding to answer.",
+          "details": {
+            "retrieved_content_summary": "[Source: Provenance-aware knowledge representation_ A survey of data model.pdf, Chunk 19.0]\nL. F. Sikos, D. Philp\nFig. 1 An n-ary relationship AS_Relation\nAPNIC\n:hasASNumber\nrdf:type\n:accordingTo\n:hasASNumber 38719DREAMSCAPE-AS-AP _:AS_Relation_1\nThe implementation issues arising from the design of\n...",
+            "sufficiency_verdict": "Sufficient",
+            "source_documents": [
+              "Provenance-aware knowledge representation_ A survey of data model.pdf"
+            ]
+          },
+          "event_type": "rag_action"
+        },
+        {
+          "step": 3,
+          "node_name": "answer",
+          "description": "Generating final answer using gathered context.",
+          "details": {},
+          "event_type": "answer_generation"
+        }
+      ],
+      "answer_quality_score": 2
+    },
+    {
+      "question_id": 7,
+      "question": "How does GLUCOSE convert semi-structured explanations into natural language?",
+      "query_type": "explanation",
+      "expected_answer": "GLUCOSE fills predefined syntactic slots (subject, verb, object, preposition) and concatenates them deterministically to form well-structured natural-language inference rules.",
+      "actual_answer": "GLUCOSE converts semi-structured explanations into natural language by using a format where specific variables and attributes are expressed in a structured manner. These semi-structured rules are then deterministically converted to natural language form by simply concatenating all the filled slots. This approach allows GLUCOSE to maintain expressivity while ensuring that the resulting explanations are consistent and easily comparable.",
+      "latency": 3.793,
+      "success": true,
+      "route_taken": "rag",
+      "rag_retrieved": true,
+      "routing_correct": true,
+      "trace_events": [
+        {
+          "step": 1,
+          "node_name": "router",
+          "description": "Router decided: 'rag'",
+          "details": {
+            "decision": "rag",
+            "reason": "Based on initial query analysis."
+          },
+          "event_type": "router_decision"
+        },
+        {
+          "step": 2,
+          "node_name": "rag_lookup",
+          "description": "RAG Lookup performed from GLUCOSE.pdf. Content found and deemed sufficient. Proceeding to answer.",
+          "details": {
+            "retrieved_content_summary": "[Source: GLUCOSE.pdf, Chunk 19.0]\ndexed, such as \u201cSomeoneA\u201d and \u201cSomethingA and\nSomethingB\u201d, to refer to the same entities on both\nsides of the rule. Each variable can be further\nelaborated using an attribute phrase in the form\nof a relative clause, e.g., \u201cSomewhere C (that is\nSomeoneA\u2019s location).\u201d...",
+            "sufficiency_verdict": "Sufficient",
+            "source_documents": [
+              "GLUCOSE.pdf"
+            ]
+          },
+          "event_type": "rag_action"
+        },
+        {
+          "step": 3,
+          "node_name": "answer",
+          "description": "Generating final answer using gathered context.",
+          "details": {},
+          "event_type": "answer_generation"
+        }
+      ],
+      "answer_quality_score": 2
+    },
+    {
+      "question_id": 8,
+      "question": "How do named graphs capture provenance in RDF?",
+      "query_type": "explanation",
+      "expected_answer": "Named graphs represent RDF data as sets of triples grouped under graph IRIs, allowing one graph to hold assertions and another to encode provenance metadata linked via provenance vocabularies.",
+      "actual_answer": "Named graphs capture provenance in RDF by allowing the grouping of RDF statements into distinct sets, each with a unique URI that can describe the provenance of the data within it. This approach facilitates the representation of provenance at the graph level, where a named graph can not only contain RDF statements (the assertion graph) but also have another graph (the provenance graph) that details the provenance information. This separation enables the documentation of where the data originated from, how it was derived, or any other relevant provenance metadata. By using named graphs, it is possible to track and manage the provenance of RDF data more effectively, as each named graph can be associated with specific provenance information that applies to all the statements within that graph.",
+      "latency": 7.687,
+      "success": true,
+      "route_taken": "rag",
+      "rag_retrieved": true,
+      "routing_correct": true,
+      "trace_events": [
+        {
+          "step": 1,
+          "node_name": "router",
+          "description": "Router decided: 'rag'",
+          "details": {
+            "decision": "rag",
+            "reason": "Based on initial query analysis."
+          },
+          "event_type": "router_decision"
+        },
+        {
+          "step": 2,
+          "node_name": "rag_lookup",
+          "description": "RAG Lookup performed from Provenance-aware knowledge representation_ A survey of data model.pdf. Content found and deemed sufficient. Proceeding to answer.",
+          "details": {
+            "retrieved_content_summary": "[Source: Provenance-aware knowledge representation_ A survey of data model.pdf, Chunk 126.0]\nDevelopment\u2014APWeb 2006. Springer, Heidelberg, pp 943\u2013948.\nhttps://doi.org/10.1007/11610113_99\n59. Pediaditis P , Flouris G, Fundulaki I, Christophides V (2009) On\nexplicit provenance management in RDF/S grap...",
+            "sufficiency_verdict": "Sufficient",
+            "source_documents": [
+              "Provenance-aware knowledge representation_ A survey of data model.pdf"
+            ]
+          },
+          "event_type": "rag_action"
+        },
+        {
+          "step": 3,
+          "node_name": "answer",
+          "description": "Generating final answer using gathered context.",
+          "details": {},
+          "event_type": "answer_generation"
+        }
+      ],
+      "answer_quality_score": 2
+    },
+    {
+      "question_id": 9,
+      "question": "How does cognitive psychology influence GLUCOSE\u2019s design?",
+      "query_type": "explanation",
+      "expected_answer": "GLUCOSE uses cognitive theories showing that humans explain events using causal chains, motivations, emotional states, and changes in attributes, inspiring the ten explanatory dimensions.",
+      "actual_answer": "Cognitive psychology influences GLUCOSE\u2019s design by inspiring the ten dimensions of causal explanations that it captures. These dimensions are meant to reflect the way humans make causal inferences, often based on implicit causes and effects related to events, locations, possessions, and other attributes. The design draws on research that shows humans typically choose relevant causes for events based on context and link specific situations to general theories to enable broader generalizations. This approach aims to scaffold cognitive development in AI systems, allowing them to better generalize and reason causally, similar to human cognition. By grounding explanations in context and explicitly stating general rules, GLUCOSE seeks to enhance AI's ability to fill reasoning gaps and create mental models akin to human understanding.",
+      "latency": 5.731,
+      "success": true,
+      "route_taken": "rag",
+      "rag_retrieved": true,
+      "routing_correct": true,
+      "trace_events": [
+        {
+          "step": 1,
+          "node_name": "router",
+          "description": "Router decided: 'rag'",
+          "details": {
+            "decision": "rag",
+            "reason": "Based on initial query analysis."
+          },
+          "event_type": "router_decision"
+        },
+        {
+          "step": 2,
+          "node_name": "rag_lookup",
+          "description": "RAG Lookup performed from GLUCOSE.pdf. Content found and deemed sufficient. Proceeding to answer.",
+          "details": {
+            "retrieved_content_summary": "[Source: GLUCOSE.pdf, Chunk 4.0]\nCOntextualized Story Explanations) dataset. Given\na short story and a sentence X in the story, GLU-\nCOSE captures ten dimensions of causal explana-\ntion related to X. These dimensions, inspired by\nhuman cognitive psychology, cover often-implicit\ncauses and effects of...",
+            "sufficiency_verdict": "Sufficient",
+            "source_documents": [
+              "GLUCOSE.pdf"
+            ]
+          },
+          "event_type": "rag_action"
+        },
+        {
+          "step": 3,
+          "node_name": "answer",
+          "description": "Generating final answer using gathered context.",
+          "details": {},
+          "event_type": "answer_generation"
+        }
+      ],
+      "answer_quality_score": 2
+    },
+    {
+      "question_id": 10,
+      "question": "How does Ferrell\u2019s text define the role of values in business ethics?",
+      "query_type": "explanation",
+      "expected_answer": "Values guide ethical decision-making by shaping perceptions of fairness, responsibility, and acceptable behavior within organizations and society.",
+      "actual_answer": "Ferrell's text defines values in business ethics as enduring beliefs and ideals that are socially enforced. These values, such as teamwork, trust, and integrity, often stem from organizational or industry best practices and play a critical role in guiding ethical decision-making within a business. Values and judgments significantly influence ethical decisions, and businesses are encouraged to hire individuals with sound moral principles to ensure ethical conduct. Additionally, core values are central to an organization and provide directions for action, relating directly to stakeholder management and helping to build a strong normative structure that supports ethical decision-making.",
+      "latency": 5.121,
+      "success": true,
+      "route_taken": "rag",
+      "rag_retrieved": true,
+      "routing_correct": true,
+      "trace_events": [
+        {
+          "step": 1,
+          "node_name": "router",
+          "description": "Router decided: 'rag'",
+          "details": {
+            "decision": "rag",
+            "reason": "Based on initial query analysis."
+          },
+          "event_type": "router_decision"
+        },
+        {
+          "step": 2,
+          "node_name": "rag_lookup",
+          "description": "RAG Lookup performed from O.C. Ferrell_ John P. Fraedrich_ Ferrell William - Business Ethics_ Ethical Decision Making & Cases-South Western Educational Publishing (2016).pdf. Content found and deemed sufficient. Proceeding to answer.",
+          "details": {
+            "retrieved_content_summary": "[Source: O.C. Ferrell_ John P. Fraedrich_ Ferrell William - Business Ethics_ Ethical Decision Making & Cases-South Western Educational Publishing (2016).pdf, Chunk 20.0]\nBusiness Ethics Intentions, Behavior, and \nEvaluations,\u00a0138\nUsing the Ethical Decision-Making Model to Improve \nEthical Decisions\n...",
+            "sufficiency_verdict": "Sufficient",
+            "source_documents": [
+              "O.C. Ferrell_ John P. Fraedrich_ Ferrell William - Business Ethics_ Ethical Decision Making & Cases-South Western Educational Publishing (2016).pdf"
+            ]
+          },
+          "event_type": "rag_action"
+        },
+        {
+          "step": 3,
+          "node_name": "answer",
+          "description": "Generating final answer using gathered context.",
+          "details": {},
+          "event_type": "answer_generation"
+        }
+      ],
+      "answer_quality_score": 2
+    },
+    {
+      "question_id": 11,
+      "question": "What is the difference between RDF reification and N-Quads?",
+      "query_type": "comparison",
+      "expected_answer": "Reification uses rdf:Statement with subject/predicate/object properties, causing triple bloat, while N-Quads add a fourth element (the graph name) enabling provenance without reifying every triple.",
+      "actual_answer": "RDF reification and N-Quads are both methods used to add metadata or provenance information to RDF data, but they approach this task differently.\n\n**RDF Reification**:\n- Reification involves creating additional RDF statements to describe an RDF triple. This means making statements about statements, effectively turning a single triple into multiple triples. For instance, to reify a triple, you would create new triples to separately describe the subject, predicate, and object, along with a statement capturing the provenance or other metadata. This can lead to a significant increase in the number of triples (often at least four times the original number of triples), which is referred to as \"triple bloat.\" This approach is often criticized for not scaling well and lacking formal semantics.\n\n**N-Quads**:\n- N-Quads is an extension of RDF that adds a fourth element to the standard RDF triple, effectively transforming it into a quadruple. This fourth element is typically used to specify the context or graph name, which can be used to capture provenance information or other metadata about the triple. N-Quads are more efficient than reification because they do not require the creation of additional triples to capture metadata. This approach is more straightforward and scales better, as it avoids the complexity and increased data volume associated with reification.\n\nIn summary, while RDF reification increases the number of triples to capture metadata, N-Quads extend the RDF data model to include this information more directly and efficiently.",
+      "latency": 12.803,
+      "success": true,
+      "route_taken": "rag",
+      "rag_retrieved": true,
+      "routing_correct": true,
+      "trace_events": [
+        {
+          "step": 1,
+          "node_name": "router",
+          "description": "Router decided: 'rag'",
+          "details": {
+            "decision": "rag",
+            "reason": "Based on initial query analysis."
+          },
+          "event_type": "router_decision"
+        },
+        {
+          "step": 2,
+          "node_name": "rag_lookup",
+          "description": "RAG Lookup performed from Provenance-aware knowledge representation_ A survey of data model.pdf. Content found and deemed sufficient. Proceeding to answer.",
+          "details": {
+            "retrieved_content_summary": "[Source: Provenance-aware knowledge representation_ A survey of data model.pdf, Chunk 43.0]\nor quads, or nonstandard tuples to capture provenance (see\nTable 4).\nRDF/XML Source Declaration employs standard RDF\ntriples written in RDF/XML serialization. PaCE uses stan-\ndard triples with carefully named...",
+            "sufficiency_verdict": "Sufficient",
+            "source_documents": [
+              "Provenance-aware knowledge representation_ A survey of data model.pdf"
+            ]
+          },
+          "event_type": "rag_action"
+        },
+        {
+          "step": 3,
+          "node_name": "answer",
+          "description": "Generating final answer using gathered context.",
+          "details": {},
+          "event_type": "answer_generation"
+        }
+      ],
+      "answer_quality_score": 2
+    },
+    {
+      "question_id": 12,
+      "question": "What is the difference between specific statements and general rules in GLUCOSE?",
+      "query_type": "comparison",
+      "expected_answer": "Specific statements are grounded in a story context, while general rules abstract the same reasoning pattern to apply broadly across scenarios.",
+      "actual_answer": "In GLUCOSE, specific statements and general rules are part of a structured approach to explain story events. A specific statement is grounded in the context of a particular story, providing a detailed explanation tailored to that context. In contrast, a general rule is a broader statement that is generalized to apply to multiple contexts beyond the specific story. Each specific statement and its corresponding general rule follow a common template of antecedent, connective, and consequent, and are crafted using syntactic slots such as subject, verb, object, and prepositions. These slots have predefined options to choose from, ensuring that the explanations maintain structured semantics. The general rule requires further generalization of the antecedent and consequent to ensure it is a valid statement applicable to various situations, often involving transformations such as replacing specific entities with variables or generalizing actions.",
+      "latency": 15.467,
+      "success": true,
+      "route_taken": "rag",
+      "rag_retrieved": true,
+      "routing_correct": true,
+      "trace_events": [
+        {
+          "step": 1,
+          "node_name": "router",
+          "description": "Router decided: 'rag'",
+          "details": {
+            "decision": "rag",
+            "reason": "Based on initial query analysis."
+          },
+          "event_type": "router_decision"
+        },
+        {
+          "step": 2,
+          "node_name": "rag_lookup",
+          "description": "RAG Lookup performed from GLUCOSE.pdf. Content found and deemed sufficient. Proceeding to answer.",
+          "details": {
+            "retrieved_content_summary": "[Source: GLUCOSE.pdf, Chunk 66.0]\nAppendix A: The Knowledge Model for\nCollecting GLUCOSE data\nSemi-structured Inference Rules\nThe knowledge represented in GLUCOSE is cap-\ntured in the form of semi-structured inference rules\nthat are accompanied by a speci\ufb01c statement that\ngrounds the rule in the con...",
+            "sufficiency_verdict": "Sufficient",
+            "source_documents": [
+              "GLUCOSE.pdf"
+            ]
+          },
+          "event_type": "rag_action"
+        },
+        {
+          "step": 3,
+          "node_name": "answer",
+          "description": "Generating final answer using gathered context.",
+          "details": {},
+          "event_type": "answer_generation"
+        }
+      ],
+      "answer_quality_score": 2
+    },
+    {
+      "question_id": 13,
+      "question": "What is the difference between ethical dilemmas and ethical issues in Ferrell et al.?",
+      "query_type": "comparison",
+      "expected_answer": "Ethical issues involve identifiable problems requiring moral evaluation, while ethical dilemmas involve choosing between two conflicting ethical values with no clear right answer.",
+      "actual_answer": "According to Ferrell et al., the difference between ethical issues and ethical dilemmas lies in the nature of the choices involved:\n\n1. **Ethical Issues**: These are problems, situations, or opportunities that require an individual, group, or organization to choose among several actions that will be evaluated as right or wrong, ethical or unethical. Ethical issues require consideration and evaluation but offer a clear distinction between ethical and unethical choices.\n\n2. **Ethical Dilemmas**: These are problems, situations, or opportunities where an individual, group, or organization must choose among several actions that all have negative outcomes. Unlike ethical issues, there is no clear right or ethical choice in a dilemma; the options are only less unethical or illegal as perceived by stakeholders. \n\nIn summary, ethical issues involve choices with potentially clear ethical and unethical paths, whereas ethical dilemmas involve choices where all options may lead to unfavorable results.",
+      "latency": 4.902,
+      "success": true,
+      "route_taken": "rag",
+      "rag_retrieved": true,
+      "routing_correct": true,
+      "trace_events": [
+        {
+          "step": 1,
+          "node_name": "router",
+          "description": "Router decided: 'rag'",
+          "details": {
+            "decision": "rag",
+            "reason": "Based on initial query analysis."
+          },
+          "event_type": "router_decision"
+        },
+        {
+          "step": 2,
+          "node_name": "rag_lookup",
+          "description": "RAG Lookup performed from O.C. Ferrell_ John P. Fraedrich_ Ferrell William - Business Ethics_ Ethical Decision Making & Cases-South Western Educational Publishing (2016).pdf. Content found and deemed sufficient. Proceeding to answer.",
+          "details": {
+            "retrieved_content_summary": "[Source: O.C. Ferrell_ John P. Fraedrich_ Ferrell William - Business Ethics_ Ethical Decision Making & Cases-South Western Educational Publishing (2016).pdf, Chunk 432.0]\nwas less beneficial than expected.\nETHICAL ISSUES AND \nDILEMMAS IN BUSINESS\nAs mentioned earlier, stakeholders and the firm defin...",
+            "sufficiency_verdict": "Sufficient",
+            "source_documents": [
+              "O.C. Ferrell_ John P. Fraedrich_ Ferrell William - Business Ethics_ Ethical Decision Making & Cases-South Western Educational Publishing (2016).pdf"
+            ]
+          },
+          "event_type": "rag_action"
+        },
+        {
+          "step": 3,
+          "node_name": "answer",
+          "description": "Generating final answer using gathered context.",
+          "details": {},
+          "event_type": "answer_generation"
+        }
+      ],
+      "answer_quality_score": 2
+    },
+    {
+      "question_id": 14,
+      "question": "How do I bake a chocolate cake?",
+      "query_type": "out_of_scope",
+      "success": false,
+      "latency": 2.3510019779205322,
+      "error": "API request failed",
+      "answer_quality_score": 0
+    },
+    {
+      "question_id": 15,
+      "question": "How do I fix Wi-Fi connection issues on my laptop?",
+      "query_type": "out_of_scope",
+      "expected_answer": "Out-of-scope. The uploaded documents do not cover computer troubleshooting.",
+      "actual_answer": "To fix Wi-Fi connection issues on your laptop, you can try the following steps:\n\n1. **Restart Your Laptop and Router**: Sometimes, a simple restart can resolve connectivity issues.\n\n2. **Check Wi-Fi Settings**: Make sure Wi-Fi is enabled on your laptop. You can usually find this in the network settings or by checking the Wi-Fi icon in your system tray.\n\n3. **Forget and Reconnect to the Network**: Go to your network settings, select the Wi-Fi network you are trying to connect to, and choose the option to forget the network. Then, reconnect by selecting the network and entering the password again.\n\n4. **Update Network Drivers**: Outdated or corrupted drivers can cause connectivity problems. Check for updates to your network drivers through your laptop manufacturer's website or use the device manager.\n\n5. **Check Airplane Mode**: Ensure that your laptop isn't set to airplane mode, which disables all wireless communications.\n\n6. **Move Closer to the Router**: Physical obstructions or distance from the router can weaken the signal. Try moving closer to see if the connection improves.\n\n7. **Check for Network Interference**: Other electronic devices can interfere with Wi-Fi signals. Try to identify and eliminate possible sources of interference.\n\n8. **Use Network Troubleshooter**: Most operating systems have a built-in network troubleshooter that can automatically detect and fix common issues.\n\n9. **Check Router Settings**: Ensure your router is configured correctly, and no settings have been changed that could prevent your laptop from connecting.\n\nIf none of these steps work, it may be helpful to contact your internet service provider for further assistance or to check if there are any outages in your area.",
+      "latency": 10.758,
+      "success": true,
+      "route_taken": "rag",
+      "rag_retrieved": true,
+      "routing_correct": true,
+      "trace_events": [
+        {
+          "step": 1,
+          "node_name": "router",
+          "description": "Router decided: 'rag'",
+          "details": {
+            "decision": "rag",
+            "reason": "Based on initial query analysis."
+          },
+          "event_type": "router_decision"
+        },
+        {
+          "step": 2,
+          "node_name": "rag_lookup",
+          "description": "RAG Lookup performed from O.C. Ferrell_ John P. Fraedrich_ Ferrell William - Business Ethics_ Ethical Decision Making & Cases-South Western Educational Publishing (2016).pdf. Content found and deemed sufficient. Proceeding to answer.",
+          "details": {
+            "retrieved_content_summary": "[Source: O.C. Ferrell_ John P. Fraedrich_ Ferrell William - Business Ethics_ Ethical Decision Making & Cases-South Western Educational Publishing (2016).pdf, Chunk 2333.0]\nquality of the coffee, the atmosphere of the coffee shops, and the overall Starbucks expe-\nrience, rather than continuing its ra...",
+            "sufficiency_verdict": "Sufficient",
+            "source_documents": [
+              "O.C. Ferrell_ John P. Fraedrich_ Ferrell William - Business Ethics_ Ethical Decision Making & Cases-South Western Educational Publishing (2016).pdf"
+            ]
+          },
+          "event_type": "rag_action"
+        },
+        {
+          "step": 3,
+          "node_name": "answer",
+          "description": "Generating final answer using gathered context.",
+          "details": {},
+          "event_type": "answer_generation"
+        }
+      ],
+      "answer_quality_score": 1
+    },
+    {
+      "question_id": 16,
+      "question": "What new provenance standards has W3C discussed in 2024?",
+      "query_type": "web_needed",
+      "expected_answer": "Requires current web search; provenance standardization efforts after 2020 must be checked online.",
+      "actual_answer": "The provided context does not mention any specific provenance standards that the W3C has discussed in 2024. Based on my general knowledge, the W3C (World Wide Web Consortium) often engages in discussions and developments related to web standards, including provenance data, which refers to information about the origins, context, and history of data. However, without specific information from the context or recent updates beyond my training data, I cannot provide details about any new provenance standards discussed by the W3C in 2024. For the most accurate and up-to-date information, I recommend checking the W3C's official website or recent publications directly.",
+      "latency": 11.977,
+      "success": true,
+      "route_taken": "web",
+      "rag_retrieved": false,
+      "routing_correct": true,
+      "trace_events": [
+        {
+          "step": 1,
+          "node_name": "router",
+          "description": "Router decided: 'web'",
+          "details": {
+            "decision": "web",
+            "reason": "Based on initial query analysis."
+          },
+          "event_type": "router_decision"
+        },
+        {
+          "step": 2,
+          "node_name": "web_search",
+          "description": "Web Search performed. Results retrieved. Proceeding to answer.",
+          "details": {
+            "retrieved_content_summary": "Title: Blog - 2024 - W3C\nContent: Blog - 2024. The W3C blog is for in-depth Web standards topics and educational materials. More information in About W3C Blog.\nURL: https://www.w3.org/blog/2024/\n\nTitl..."
+          },
+          "event_type": "web_action"
+        },
+        {
+          "step": 3,
+          "node_name": "answer",
+          "description": "Generating final answer using gathered context.",
+          "details": {},
+          "event_type": "answer_generation"
+        }
+      ],
+      "answer_quality_score": 1
+    },
+    {
+      "question_id": 17,
+      "question": "What are the latest applications of GLUCOSE-style reasoning in 2024 AI research?",
+      "query_type": "web_needed",
+      "expected_answer": "Requires current web information about recent research that applies GLUCOSE-like structured causal reasoning.",
+      "actual_answer": "The context provided does not contain relevant information about GLUCOSE-style reasoning in AI research for 2024. However, based on general knowledge, GLUCOSE (GeneraLized and COntextualized Story Explanation) is a framework used in AI for reasoning about causal relationships and narrative understanding. In 2024, applications of GLUCOSE-style reasoning in AI research might include:\n\n1. **Improved Narrative Understanding**: Enhancing AI's ability to understand and generate human-like stories by identifying causal relationships and context within narratives.\n\n2. **Causal Inference in Complex Systems**: Applying GLUCOSE-style reasoning to infer causal relationships in complex systems, such as healthcare for predicting disease progression or treatment outcomes.\n\n3. **Language Models**: Integration with large language models to refine question-answering systems, making them more adept at understanding context and causality.\n\n4. **Educational Tools**: Development of AI-driven educational tools that use narrative understanding to create more engaging and effective learning experiences.\n\n5. **Human-AI Collaboration**: Facilitating better human-AI collaboration by enabling AI systems to understand and predict human behavior based on narrative contexts.\n\nThese applications reflect the ongoing trend of leveraging AI for more nuanced understanding and decision-making processes across various domains.",
+      "latency": 10.249,
+      "success": true,
+      "route_taken": "web",
+      "rag_retrieved": false,
+      "routing_correct": true,
+      "trace_events": [
+        {
+          "step": 1,
+          "node_name": "router",
+          "description": "Router decided: 'web'",
+          "details": {
+            "decision": "web",
+            "reason": "Based on initial query analysis."
+          },
+          "event_type": "router_decision"
+        },
+        {
+          "step": 2,
+          "node_name": "web_search",
+          "description": "Web Search performed. Results retrieved. Proceeding to answer.",
+          "details": {
+            "retrieved_content_summary": "Title: Global research trends in AI-assisted blood glucose management\nContent: AI technologies are significantly advancing blood glucose management, especially through machine learning and predictive ..."
+          },
+          "event_type": "web_action"
+        },
+        {
+          "step": 3,
+          "node_name": "answer",
+          "description": "Generating final answer using gathered context.",
+          "details": {},
+          "event_type": "answer_generation"
+        }
+      ],
+      "answer_quality_score": 1
+    },
+    {
+      "question_id": 18,
+      "question": "What major business ethics scandals occurred in 2024?",
+      "query_type": "web_needed",
+      "expected_answer": "Requires web search; recent scandals are not documented in the 2016 textbook.",
+      "actual_answer": "In 2024, some major business ethics scandals included:\n\n1. **Raytheon and RTX**: These companies faced significant ethical issues, including bribing foreign officials to win contracts, providing false pricing information, fraudulently inflating prices on government contracts, and allowing foreign agents to access U.S. military secrets regarding airplanes and missile systems.\n\n2. **Child Labor Concerns**: The compliance community was urged to improve risk assessments for child labor in U.S. supply chains, with the Department of Labor seeking more authority to address and punish companies benefiting from it.\n\n3. **Fashion Brands**: Brands like Skims, Victoria's Secret, Zara, and Nike were criticized for unethical labor practices. Skims and others were accused of exploiting garment workers in countries like Bangladesh and Vietnam. Zara faced protests for greenwashing and unethical supply chain practices, while Nike was accused of prioritizing profits over ethical labor practices.\n\n4. **Anthropic AI Case**: The AI company Anthropic claimed that using copyrighted content in training data for large language models counts as \"fair use,\" sparking a legal and ethical debate over AI's use of copyrighted materials.\n\nThese incidents highlight ongoing challenges in business ethics related to labor practices, compliance with legal standards, and the ethical use of technology.",
+      "latency": 6.958,
+      "success": true,
+      "route_taken": "web",
+      "rag_retrieved": false,
+      "routing_correct": true,
+      "trace_events": [
+        {
+          "step": 1,
+          "node_name": "router",
+          "description": "Router decided: 'web'",
+          "details": {
+            "decision": "web",
+            "reason": "Based on initial query analysis."
+          },
+          "event_type": "router_decision"
+        },
+        {
+          "step": 2,
+          "node_name": "web_search",
+          "description": "Web Search performed. Results retrieved. Proceeding to answer.",
+          "details": {
+            "retrieved_content_summary": "Title: Top ethics and compliance fails of 2024\nContent: That includes the companies on this year\u2019s list of compliance failures, who taught us all lessons in what not to do, and why. Bribing foreign of..."
+          },
+          "event_type": "web_action"
+        },
+        {
+          "step": 3,
+          "node_name": "answer",
+          "description": "Generating final answer using gathered context.",
+          "details": {},
+          "event_type": "answer_generation"
+        }
+      ],
+      "answer_quality_score": 2
+    }
+  ],
+  "metrics": {
+    "latency": {
+      "average": 8.009,
+      "median": 7.687,
+      "min": 3.793,
+      "max": 15.467,
+      "p95": 13.335,
+      "stddev": 3.321
+    },
+    "retrieval": {
+      "success_rate": 100.0,
+      "successful_retrievals": 13,
+      "total_attempts": 13
+    },
+    "routing": {
+      "accuracy": 94.44,
+      "correct_routes": 17,
+      "total_queries": 18
+    },
+    "answer_quality": {
+      "total_score": 30,
+      "max_possible_score": 34,
+      "quality_percentage": 88.24,
+      "scored_questions": 17,
+      "excluded_questions": 1,
+      "score_breakdown": {
+        "correct_2pts": 13,
+        "partially_correct_1pt": 4,
+        "incorrect_0pts": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "metadata": {
+    "dataset_name": "AyDo RAG System Evaluation Dataset",
+    "version": "1.0",
+    "created_date": "2025-11-27",
+    "description": "Evaluation dataset for testing RAG retrieval, reasoning, routing, and web search behavior using content from three uploaded documents.",
+    "total_questions": 18
+  },
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is RDF reification?",
+      "expected_answer": "RDF reification is a mechanism that represents statements about RDF statements using rdf:Statement, rdf:subject, rdf:predicate, and rdf:object. It enables attaching provenance metadata but is inefficient and leads to triple bloat.",
+      "document_source": "Provenance-aware knowledge representation.pdf",
+      "query_type": "factual",
+      "should_use_rag": true,
+      "should_use_web": false,
+      "difficulty": "easy"
+    },
+    {
+      "id": 2,
+      "question": "What is the GLUCOSE dataset?",
+      "expected_answer": "GLUCOSE is a dataset of contextualized causal explanations derived from ROCStories, containing over 670K semi-structured causal statements and general rules grounded in ten dimensions of narrative reasoning.",
+      "document_source": "GLUCOSE.pdf",
+      "query_type": "factual",
+      "should_use_rag": true,
+      "should_use_web": false,
+      "difficulty": "easy"
+    },
+    {
+      "id": 3,
+      "question": "What does the term 'provenance' mean in RDF systems?",
+      "expected_answer": "Provenance refers to the origin or source of data, including how it was produced, extracted, or derived. It is crucial for trust, reliability assessment, decision support, and understanding data quality.",
+      "document_source": "Provenance-aware knowledge representation.pdf",
+      "query_type": "factual",
+      "should_use_rag": true,
+      "should_use_web": false,
+      "difficulty": "easy"
+    },
+    {
+      "id": 4,
+      "question": "What are the ten dimensions of explanation defined in GLUCOSE?",
+      "expected_answer": "The ten dimensions describe causal relationships before and after an event X—covering direct causes, motivations, enabling states of location/possession, resulting events, emotional effects, changes in location or possession, and other property changes.",
+      "document_source": "GLUCOSE.pdf",
+      "query_type": "factual",
+      "should_use_rag": true,
+      "should_use_web": false,
+      "difficulty": "medium"
+    },
+    {
+      "id": 5,
+      "question": "What is ethical decision-making as described in Ferrell et al.?",
+      "expected_answer": "Ethical decision-making is a process of evaluating and choosing among alternatives in a manner consistent with ethical principles, balancing values such as fairness, responsibility, and societal expectations.",
+      "document_source": "Business Ethics.pdf",
+      "query_type": "factual",
+      "should_use_rag": true,
+      "should_use_web": false,
+      "difficulty": "medium"
+    },
+
+    {
+      "id": 6,
+      "question": "How does RDF* represent provenance?",
+      "expected_answer": "RDF* enables embedded triples using the syntax <<s p o>> allowing metadata such as provenance to be directly attached without full reification.",
+      "document_source": "Provenance-aware knowledge representation.pdf",
+      "query_type": "explanation",
+      "should_use_rag": true,
+      "should_use_web": false,
+      "difficulty": "medium"
+    },
+    {
+      "id": 7,
+      "question": "How does GLUCOSE convert semi-structured explanations into natural language?",
+      "expected_answer": "GLUCOSE fills predefined syntactic slots (subject, verb, object, preposition) and concatenates them deterministically to form well-structured natural-language inference rules.",
+      "document_source": "GLUCOSE.pdf",
+      "query_type": "explanation",
+      "should_use_rag": true,
+      "should_use_web": false,
+      "difficulty": "medium"
+    },
+    {
+      "id": 8,
+      "question": "How do named graphs capture provenance in RDF?",
+      "expected_answer": "Named graphs represent RDF data as sets of triples grouped under graph IRIs, allowing one graph to hold assertions and another to encode provenance metadata linked via provenance vocabularies.",
+      "document_source": "Provenance-aware knowledge representation.pdf",
+      "query_type": "explanation",
+      "should_use_rag": true,
+      "should_use_web": false,
+      "difficulty": "medium"
+    },
+    {
+      "id": 9,
+      "question": "How does cognitive psychology influence GLUCOSE’s design?",
+      "expected_answer": "GLUCOSE uses cognitive theories showing that humans explain events using causal chains, motivations, emotional states, and changes in attributes, inspiring the ten explanatory dimensions.",
+      "document_source": "GLUCOSE.pdf",
+      "query_type": "explanation",
+      "should_use_rag": true,
+      "should_use_web": false,
+      "difficulty": "medium"
+    },
+    {
+      "id": 10,
+      "question": "How does Ferrell’s text define the role of values in business ethics?",
+      "expected_answer": "Values guide ethical decision-making by shaping perceptions of fairness, responsibility, and acceptable behavior within organizations and society.",
+      "document_source": "Business Ethics.pdf",
+      "query_type": "explanation",
+      "should_use_rag": true,
+      "should_use_web": false,
+      "difficulty": "hard"
+    },
+
+    {
+      "id": 11,
+      "question": "What is the difference between RDF reification and N-Quads?",
+      "expected_answer": "Reification uses rdf:Statement with subject/predicate/object properties, causing triple bloat, while N-Quads add a fourth element (the graph name) enabling provenance without reifying every triple.",
+      "document_source": "Provenance-aware knowledge representation.pdf",
+      "query_type": "comparison",
+      "should_use_rag": true,
+      "should_use_web": false,
+      "difficulty": "medium"
+    },
+    {
+      "id": 12,
+      "question": "What is the difference between specific statements and general rules in GLUCOSE?",
+      "expected_answer": "Specific statements are grounded in a story context, while general rules abstract the same reasoning pattern to apply broadly across scenarios.",
+      "document_source": "GLUCOSE.pdf",
+      "query_type": "comparison",
+      "should_use_rag": true,
+      "should_use_web": false,
+      "difficulty": "easy"
+    },
+    {
+      "id": 13,
+      "question": "What is the difference between ethical dilemmas and ethical issues in Ferrell et al.?",
+      "expected_answer": "Ethical issues involve identifiable problems requiring moral evaluation, while ethical dilemmas involve choosing between two conflicting ethical values with no clear right answer.",
+      "document_source": "Business Ethics.pdf",
+      "query_type": "comparison",
+      "should_use_rag": true,
+      "should_use_web": false,
+      "difficulty": "hard"
+    },
+
+    {
+      "id": 14,
+      "question": "How do I bake a chocolate cake?",
+      "expected_answer": "Out-of-scope. This question is not covered by any of the uploaded documents.",
+      "document_source": "none",
+      "query_type": "out_of_scope",
+      "should_use_rag": false,
+      "should_use_web": false,
+      "difficulty": "easy"
+    },
+    {
+      "id": 15,
+      "question": "How do I fix Wi-Fi connection issues on my laptop?",
+      "expected_answer": "Out-of-scope. The uploaded documents do not cover computer troubleshooting.",
+      "document_source": "none",
+      "query_type": "out_of_scope",
+      "should_use_rag": false,
+      "should_use_web": false,
+      "difficulty": "easy"
+    },
+
+    {
+      "id": 16,
+      "question": "What new provenance standards has W3C discussed in 2024?",
+      "expected_answer": "Requires current web search; provenance standardization efforts after 2020 must be checked online.",
+      "document_source": "web",
+      "query_type": "web_needed",
+      "should_use_rag": false,
+      "should_use_web": true,
+      "difficulty": "medium"
+    },
+    {
+      "id": 17,
+      "question": "What are the latest applications of GLUCOSE-style reasoning in 2024 AI research?",
+      "expected_answer": "Requires current web information about recent research that applies GLUCOSE-like structured causal reasoning.",
+      "document_source": "web",
+      "query_type": "web_needed",
+      "should_use_rag": false,
+      "should_use_web": true,
+      "difficulty": "hard"
+    },
+    {
+      "id": 18,
+      "question": "What major business ethics scandals occurred in 2024?",
+      "expected_answer": "Requires web search; recent scandals are not documented in the 2016 textbook.",
+      "document_source": "web",
+      "query_type": "web_needed",
+      "should_use_rag": false,
+      "should_use_web": true,
+      "difficulty": "medium"
+    }
+  ],
+  "instructions": {
+    "usage": "Replace sample diabetes questions with questions from your actual uploaded documents",
+    "customization_steps": [
+      "1. Upload 2-3 PDF documents to your AyDo system",
+      "2. Read through the documents and identify clear factual content",
+      "3. Replace questions 1-13 with questions answerable from YOUR documents",
+      "4. Update 'document_source' field with your actual filenames",
+      "5. Update 'expected_answer' with answers from your documents",
+      "6. Keep questions 14-15 as out-of-scope (or create your own)",
+      "7. Update questions 16-18 with current events relevant to your domain",
+      "8. Optionally add more questions (target: 15-20 total)"
+    ],
+    "question_type_guide": {
+      "factual": "Direct lookup questions with specific answers",
+      "explanation": "Questions requiring understanding and explanation of concepts/processes",
+      "comparison": "Questions asking about differences or relationships between concepts",
+      "out_of_scope": "Questions not covered in your documents (tests fallback behavior)",
+      "web_needed": "Questions requiring current/real-time information from the web"
+    },
+    "difficulty_guide": {
+      "easy": "Single fact, direct lookup",
+      "medium": "Requires understanding context or multiple facts",
+      "hard": "Complex reasoning or synthesis of multiple pieces of information"
+    }
+  }
+}
